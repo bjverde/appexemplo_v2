@@ -1,0 +1,19 @@
+# Ignore all directories, and all sub-directories, and it's contents:
+# Ignore * all files in directories
+# Ignore **/ alll subdirectories 
+
+# VsCode files
+.vscode/
+
+# Eclipse files
+/.settings/
+/.vscode/
+/.project
+/.buildpath
+
+
+# Iginorando arquivos
+/www/app/cnpj_full/
+/www/tmp/
+!/www/tmp/.htaccess
+/www/tmp2/
