@@ -5,6 +5,10 @@ new TSession;
 
 $content     = file_get_contents("app/templates/{$theme}/layout.html");
 $menu_string = AdiantiMenuBuilder::parse('menu.xml', $theme);
+$system_version = $ini['system']['version'];
+$head_title  = $ini['system']['head_title'].' - v'.$system_version;
+$content     = str_replace('{head_title}', $head_title, $content);
+$content     = str_replace('{system_version}', $system_version, $content);
 $content     = str_replace('{MENU}', $menu_string, $content);
 $content     = ApplicationTranslator::translateTemplate($content);
 $content     = str_replace('{LIBRARIES}', file_get_contents("app/templates/{$theme}/libraries.html"), $content);
