@@ -1,155 +1,25 @@
 <menu>
-    <menuitem label='Home'>
-        <icon>fa:home fa-fw</icon>
-        <menu>
-            <menuitem label='Marca'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Pedido'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Pedido_item'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Produto'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-        </menu>
-    </menuitem>
-    <menuitem label='Autoridades'>
-        <icon>fa:cog fa-fw</icon>
-        <menu>
-            <menuitem label='Cadastro Autoridades'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-        </menu>
-    </menuitem>    
-    <menuitem label='Pessoas'>
-        <icon>fa:cog fa-fw</icon>
-        <menu>
-            <menuitem label='Pessoa Física'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Pessoa Jurídica'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Pessoa'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Endereço'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Telefone'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-        </menu>
-    </menuitem>
-    <menuitem label='Tabelas de Apoio'>
-        <icon>fa:cog fa-fw</icon>
-        <menu>
-            <menuitem label='Região'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>            
-            <menuitem label='UF'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Município'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Meta Tipo'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Tipo'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>            
-        </menu>
-    </menuitem>    
-    <menuitem label='Acesso'>
-        <icon>fa:cog fa-fw</icon>
-        <menu>
-            <menuitem label='Usuários'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>            
-            <menuitem label='Pefil de Acesso'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Menu'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Menu'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Relacionar Perfil com Menu'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Relacionar Perfil com Usuário'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Alterar a minha senha'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>            
-        </menu>
-    </menuitem>
-    <menuitem label='Sobre'>
-        <icon>fa:cog fa-fw</icon>
+    <menuitem label='Sobre - direto nível 1'>
+        <icon>fa:cube fa-fw</icon>
         <action>SystemAboutView</action>
-    </menuitem>      
-    <menuitem label='Config Ambiente'>
-        <icon>fa:cog fa-fw</icon>
-        <menu>
-            <menuitem label='Ambiente Resumido'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>            
-            <menuitem label='PHPInfo'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Gerador VO/DAO'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>
-            <menuitem label='Gerador Form VO/DAO'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
-            </menuitem>                        
-        </menu>
     </menuitem>
-    <menuitem label='Banco'>
+    <menuitem label='Info'>
         <icon>fa:cog fa-fw</icon>
         <menu>
-            <menuitem label='Commit'>
+            <menuitem label='Sobre - direto nível 2'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemAboutView</action>
+            </menuitem>
+            <menuitem label='Ajuda'>
+                <icon>fa:cube fa-fw</icon>
+                <action>AjudaView</action>
+            </menuitem>
+            <menuitem label='ModulesCheck'>
                 <icon>fa:cube fa-fw</icon>
                 <action>SystemModulesCheckView</action>
-            </menuitem>            
-            <menuitem label='Rollback'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
             </menuitem>
-            <menuitem label='Multiplos Bancos'>
-                <icon>fa:code fa-fw</icon>
+            <menuitem label='PHPInfoView'>
+                <icon>fa:cube fa-fw</icon>
                 <action>SystemPHPInfoView</action>
             </menuitem>
         </menu>
