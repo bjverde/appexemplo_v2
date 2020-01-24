@@ -1,4 +1,34 @@
 <menu>
+    <menuitem label='Home'>
+        <icon>fa:home fa-fw</icon>
+        <menu>
+            <menuitem label='Marca'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+            <menuitem label='Pedido'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+            <menuitem label='Pedido_item'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+            <menuitem label='Produto'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+        </menu>
+    </menuitem>
+    <menuitem label='Autoridades'>
+        <icon>fa:cog fa-fw</icon>
+        <menu>
+            <menuitem label='Cadastro Autoridades'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+        </menu>
+    </menuitem>    
     <menuitem label='Sobre - direto nível 1'>
         <icon>fa:cube fa-fw</icon>
         <action>SystemAboutView</action>
