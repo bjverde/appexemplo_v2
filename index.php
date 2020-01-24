@@ -11,6 +11,7 @@ $content     = str_replace('{head_title}', $head_title, $content);
 $content     = str_replace('{system_version}', $system_version, $content);
 $content     = str_replace('{logo-mini}', $ini['general']['application'], $content);
 $content     = str_replace('{logo-lg}', $ini['system']['logo-lg'], $content);
+$content     = str_replace('{logo-link-class}', $ini['system']['logo-link-class'], $content);
 $content     = str_replace('{MENU}', $menu_string, $content);
 $content     = ApplicationTranslator::translateTemplate($content);
 $content     = str_replace('{LIBRARIES}', file_get_contents("app/templates/{$theme}/libraries.html"), $content);

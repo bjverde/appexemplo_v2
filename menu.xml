@@ -114,7 +114,7 @@
     </menuitem>
     <menuitem label='Sobre'>
         <icon>fa:cog fa-fw</icon>
-        <action>SystemModulesCheckView</action>
+        <action>SystemAboutView</action>
     </menuitem>      
     <menuitem label='Config Ambiente'>
         <icon>fa:cog fa-fw</icon>
