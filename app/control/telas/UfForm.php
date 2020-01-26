@@ -23,14 +23,18 @@ class UfForm extends TPage
         $this->form = new BootstrapFormBuilder('form_uf');
         $this->form->setFormTitle('Uf');
 
+        $listRegiao = Regiao::all();
+
         // create the form fields
         $id     = new TEntry('cod_uf');
         $name   = new TEntry('nom_uf');
-        $tipo_socio = new TCombo('cod_regiao')->addItems($listipoSocio);
+        $cod_regiao = new TCombo('cod_regiao');
+        $cod_regiao->addItems($listRegiao);
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
+        $this->form->addFields( [new TLabel('Região', 'red')],  [$cod_regiao] );
         
         $id->addValidation('Cod', new TRequiredValidator);
         $name->addValidation('Name', new TRequiredValidator);
