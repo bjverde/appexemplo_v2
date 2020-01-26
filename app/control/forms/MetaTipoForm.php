@@ -26,10 +26,17 @@ class MetaTipoForm extends TPage
         // create the form fields
         $id     = new TEntry('idMetaTipo');
         $name   = new TEntry('descricao');
+        $sit_ativos = new TRadioGroup('sit_ativo');
+
+        $sit_ativos->setLayout('horizontal');
+        $sit_ativos->setUseButton();
+        $items = ['S'=>'Sim', 'N'=>'Não'];
+        $sit_ativos->addItems($items);
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
+        $this->form->addFields( [new TLabel('Ativo', 'red')],  [$sit_ativos] );
         
         $id->addValidation('Cod', new TRequiredValidator);
         $name->addValidation('Name', new TRequiredValidator);
@@ -47,10 +54,12 @@ class MetaTipoForm extends TPage
         
         // add the columns
         $col_id    = new TDataGridColumn('idMetaTipo', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('descricao', 'Nome', 'left', '90%');
+        $col_name  = new TDataGridColumn('descricao', 'Nome');
+        $col_sit_ativo  = new TDataGridColumn('sit_ativo', 'Ativo');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
+        $this->datagrid->addColumn($col_sit_ativo);
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idMetaTipo']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
