@@ -70,12 +70,12 @@
                 <action>SystemPHPInfoView</action>
             </menuitem>
             <menuitem label='Meta Tipo'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
+                <icon>fa:code fa-table</icon>
+                <action>MetaTipoForm</action>
             </menuitem>
             <menuitem label='Tipo'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
+                <icon>fa:code fa-table</icon>
+                <action>TipoForm</action>
             </menuitem>            
         </menu>
     </menuitem>
