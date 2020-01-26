@@ -24,23 +24,24 @@ class UfForm extends TPage
         $this->form->setFormTitle('Uf');
 
         $regiaoController = new RegiaoController();
-        $listRegiao = $regiaoController->selectAll();
-        var_dump($listRegiao);
+        $listRegiao = $regiaoController->getCombo();
 
         // create the form fields
         $id     = new TEntry('cod_uf');
         $name   = new TEntry('nom_uf');
+        $sig_uf   = new TEntry('sig_uf');
         $cod_regiao = new TCombo('cod_regiao');
         $cod_regiao->addItems($listRegiao);
+        
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
-        $this->form->addFields( [new TLabel('Região', 'red')],  [$cod_regiao] );
+        $this->form->addFields( [new TLabel('Sigla', 'red')],  [$sig_uf], [new TLabel('Região', 'red')],  [$cod_regiao] );
         
         $id->addValidation('Cod', new TRequiredValidator);
         $name->addValidation('Name', new TRequiredValidator);
-        
+        //$name->addValidation('Sigla', new TRequiredValidator);        
         // define the form actions
         $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
         $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
@@ -53,11 +54,15 @@ class UfForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('cod_uf', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('nom_uf', 'Nome', 'left', '90%');
+        $col_id   = new TDataGridColumn('cod_uf', 'Cod', 'right', '10%');
+        $col_name = new TDataGridColumn('nom_uf', 'Nome');
+        $sig_uf   = new TDataGridColumn('sig_uf', 'Sigla');
+        $cod_regiao = new TDataGridColumn('cod_regiao', 'cod_regiao');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
+        $this->datagrid->addColumn($sig_uf);
+        $this->datagrid->addColumn($cod_regiao);
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'cod_regiao']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_regiao']);
@@ -72,12 +77,19 @@ class UfForm extends TPage
         // create the datagrid model
         $this->datagrid->createModel();
 
+        $panel = new TPanelGroup('Lista de UF');
+        $panel->add( $this->datagrid );
+        $panel->addFooter('footer');
+        
+        //$panel->addHeaderActionLink( 'Save as PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
+        //$panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
+
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
         $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
         $vbox->add($this->form);
-        $vbox->add(TPanelGroup::pack('', $this->datagrid));
+        $vbox->add($panel);
         
         parent::add($vbox);
     }
