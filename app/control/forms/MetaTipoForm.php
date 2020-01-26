@@ -26,13 +26,9 @@ class MetaTipoForm extends TPage
         // create the form fields
         $id     = new TEntry('idMetaTipo');
         $name   = new TEntry('descricao');
-        $sit_ativos = new TRadioGroup('sit_ativo');
+        $formDinSwitch = new TFormDinSwitch('sit_ativo');
+        $sit_ativos = $formDinSwitch->getAdiantiObj();
 
-        $sit_ativos->setLayout('horizontal');
-        $sit_ativos->setUseButton();
-        $items = ['S'=>'Sim', 'N'=>'Não'];
-        $sit_ativos->addItems($items);
-        
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
