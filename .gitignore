@@ -10,3 +10,9 @@
 /.vscode/
 /.project
 /.buildpath
+
+# Iginorando arquivos
+/tmp/
+!/tmp/.htaccess
+/app/output/
+!/app/output/.gitignore
