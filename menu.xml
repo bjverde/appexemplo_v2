@@ -59,7 +59,7 @@
         <menu>
             <menuitem label='Região'>
                 <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
+                <action>RegiaoForm</action>
             </menuitem>            
             <menuitem label='UF'>
                 <icon>fa:code fa-fw</icon>
