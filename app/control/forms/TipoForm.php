@@ -16,7 +16,7 @@ class TipoForm extends TPage
 
         $this->setDatabase('form_exemplo'); // define the database
         $this->setActiveRecord('Tipo'); // define the Active Record
-        $this->setDefaultOrder('cod_regiao', 'asc'); // define the default order
+        $this->setDefaultOrder('idtipo', 'asc'); // define the default order
         $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
@@ -46,18 +46,18 @@ class TipoForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('cod_regiao', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('nom_regiao', 'Nome', 'left', '90%');
+        $col_id    = new TDataGridColumn('idtipo', 'Cod', 'right', '10%');
+        $col_name  = new TDataGridColumn('descricao', 'Nome', 'left', '90%');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
         
-        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'cod_regiao']);
-        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_regiao']);
+        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idtipo']);
+        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
         
         // define row actions
-        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{cod_regiao}'] );
-        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{cod_regiao}'] );
+        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idtipo}'] );
+        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{idtipo}'] );
         
         $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
         $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');

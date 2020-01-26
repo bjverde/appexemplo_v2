@@ -1,20 +1,12 @@
 <menu>
     <menuitem label='Home'>
-        <icon>fa:home fa-fw</icon>
+        <icon>fa:cart-plus fa-fw</icon>
         <menu>
-            <menuitem label='Marca'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
             <menuitem label='Pedido'>
                 <icon>fa:cube fa-fw</icon>
                 <action>SystemModulesCheckView</action>
             </menuitem>
             <menuitem label='Pedido_item'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
-            </menuitem>
-            <menuitem label='Produto'>
                 <icon>fa:cube fa-fw</icon>
                 <action>SystemModulesCheckView</action>
             </menuitem>
@@ -30,7 +22,7 @@
         </menu>
     </menuitem>
     <menuitem label='Pessoas'>
-        <icon>fa:cog fa-fw</icon>
+        <icon>fa:user-circle fa-fw</icon>
         <menu>
             <menuitem label='Pessoa Física'>
                 <icon>fa:cube fa-fw</icon>
@@ -57,6 +49,14 @@
     <menuitem label='Tabelas de Apoio'>
         <icon>fa:cog fa-table</icon>
         <menu>
+            <menuitem label='Marca'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>
+            <menuitem label='Produto'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemModulesCheckView</action>
+            </menuitem>            
             <menuitem label='Região'>
                 <icon>fa:cube fa-table</icon>
                 <action>RegiaoForm</action>
@@ -80,10 +80,10 @@
         </menu>
     </menuitem>
     <menuitem label='Acesso'>
-        <icon>fa:cog fa-fw</icon>
+        <icon>fa:key fa-fw</icon>
         <menu>
             <menuitem label='Usuários'>
-                <icon>fa:cube fa-fw</icon>
+                <icon>fa:user fa-fw</icon>
                 <action>SystemModulesCheckView</action>
             </menuitem>            
             <menuitem label='Pefil de Acesso'>
