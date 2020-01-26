@@ -55,15 +55,15 @@
         </menu>
     </menuitem>
     <menuitem label='Tabelas de Apoio'>
-        <icon>fa:cog fa-fw</icon>
+        <icon>fa:cog fa-table</icon>
         <menu>
             <menuitem label='Região'>
-                <icon>fa:cube fa-fw</icon>
+                <icon>fa:cube fa-table</icon>
                 <action>RegiaoForm</action>
             </menuitem>            
             <menuitem label='UF'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
+                <icon>fa:code fa-table</icon>
+                <action>UfForm</action>
             </menuitem>
             <menuitem label='Município'>
                 <icon>fa:code fa-fw</icon>

@@ -1,6 +1,6 @@
 <?php
 
-class RegiaoForm extends TPage
+class UfForm extends TPage
 {
     protected $form;      // form
     protected $datagrid;  // datagrid
@@ -15,17 +15,18 @@ class RegiaoForm extends TPage
         parent::__construct();
 
         $this->setDatabase('form_exemplo'); // define the database
-        $this->setActiveRecord('Regiao'); // define the Active Record
-        $this->setDefaultOrder('cod_regiao', 'asc'); // define the default order
+        $this->setActiveRecord('Uf'); // define the Active Record
+        $this->setDefaultOrder('cod_uf', 'asc'); // define the default order
         $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
-        $this->form = new BootstrapFormBuilder('form_regiao');
-        $this->form->setFormTitle('Região');
+        $this->form = new BootstrapFormBuilder('form_uf');
+        $this->form->setFormTitle('Uf');
 
         // create the form fields
-        $id     = new TEntry('cod_regiao');
-        $name   = new TEntry('nom_regiao');
+        $id     = new TEntry('cod_uf');
+        $name   = new TEntry('nom_uf');
+        $tipo_socio = new TCombo('cod_regiao')->addItems($listipoSocio);
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
@@ -46,8 +47,8 @@ class RegiaoForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('cod_regiao', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('nom_regiao', 'Nome', 'left', '90%');
+        $col_id    = new TDataGridColumn('cod_uf', 'Cod', 'right', '10%');
+        $col_name  = new TDataGridColumn('nom_uf', 'Nome', 'left', '90%');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
