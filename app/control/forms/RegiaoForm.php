@@ -65,13 +65,86 @@ class RegiaoForm extends TPage
         // create the datagrid model
         $this->datagrid->createModel();
 
+        $panel = new TPanelGroup('Lista de Regiões');
+        $panel->add( $this->datagrid );
+        //$panel->addFooter('footer');
+
+        $panel->addHeaderActionLink( 'Save as PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
+        $panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
+
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
         $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
         $vbox->add($this->form);
-        $vbox->add(TPanelGroup::pack('', $this->datagrid));
+        $vbox->add($panel);
         
         parent::add($vbox);
     }
+
+    /**
+     * Export datagrid as PDF
+     */
+    public function exportAsPDF($param)
+    {
+        try
+        {
+            // string with HTML contents
+            $html = clone $this->datagrid;
+            $contents = file_get_contents('app/resources/styles-print.html') . $html->getContents();
+            
+            // converts the HTML template into PDF
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml($contents);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            
+            $file = 'app/output/datagrid-export.pdf';
+            
+            // write and open file
+            file_put_contents($file, $dompdf->output());
+            
+            $window = TWindow::create('Export', 0.8, 0.8);
+            $object = new TElement('object');
+            $object->data  = $file;
+            $object->type  = 'application/pdf';
+            $object->style = "width: 100%; height:calc(100% - 10px)";
+            $window->add($object);
+            $window->show();
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Export datagrid as CSV
+     */
+    public function exportAsCSV($param)
+    {
+        try
+        {
+            // get datagrid raw data
+            $data = $this->datagrid->getOutputData();
+            
+            if ($data)
+            {
+                $file    = 'app/output/datagrid-export.csv';
+                $handler = fopen($file, 'w');
+                foreach ($data as $row)
+                {
+                    fputcsv($handler, $row);
+                }
+                
+                fclose($handler);
+                parent::openFile($file);
+            }
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
+        }
+    }
+
 }
