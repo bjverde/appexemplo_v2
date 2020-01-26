@@ -78,9 +78,8 @@ class MetaTipoForm extends TPage
         $panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
 
         // wrap the page content using vertical box
-        $vbox = new TVBox;
-        $vbox->style = 'width: 100%';
-        $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+        $formDinSwitch = new TFormDinBreadCrumb(__CLASS__);
+        $vbox = $formDinSwitch->getAdiantiObj();
         $vbox->add($this->form);
         $vbox->add($panel);
         
