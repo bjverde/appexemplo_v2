@@ -23,7 +23,9 @@ class UfForm extends TPage
         $this->form = new BootstrapFormBuilder('form_uf');
         $this->form->setFormTitle('Uf');
 
-        $listRegiao = Regiao::all();
+        $regiaoController = new RegiaoController();
+        $listRegiao = $regiaoController->selectAll();
+        var_dump($listRegiao);
 
         // create the form fields
         $id     = new TEntry('cod_uf');
