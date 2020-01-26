@@ -34,7 +34,7 @@ class TDataGridColumn
      * @param  $align = Column align (left, center, right)
      * @param  $width = Column Width (pixels)
      */
-    public function __construct($name, $label, $align, $width = NULL)
+    public function __construct($name, $label, $align = 'left', $width = NULL)
     {
         $this->name  = $name;
         $this->label = $label;
