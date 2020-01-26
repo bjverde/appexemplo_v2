@@ -5,13 +5,24 @@ class RegiaoController
     {
         try {
             TTransaction::open('form_exemplo'); // abre uma transação
-            $listRegiao = Regiao::All();
+            $listRegiao = Regiao::orderBy('nom_regiao')->load();
             TTransaction::close(); // fecha a transação.
             return $listRegiao;
         }
         catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
+    }
+
+    public function getCombo()
+    {
+        $listRegiaoObj = $this->selectAll();
+        $listRegiao = array();
+        foreach ($listRegiaoObj as $obj) {
+            $data = $obj->toArray();
+            $listRegiao[$data['cod_regiao']]=$data['nom_regiao'];
+        }
+        return $listRegiao;
     }
 
 
