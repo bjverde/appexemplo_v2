@@ -50,15 +50,15 @@
         <icon>fa:cog fa-table</icon>
         <menu>
             <menuitem label='Marca'>
-                <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
+                <icon>fa:table fa-fw</icon>
+                <action>MarcaForm</action>
             </menuitem>
             <menuitem label='Produto'>
-                <icon>fa:cube fa-fw</icon>
+                <icon>fa:table fa-fw</icon>
                 <action>SystemModulesCheckView</action>
             </menuitem>            
             <menuitem label='Região'>
-                <icon>fa:cube fa-table</icon>
+                <icon>fa:table fa-fw</icon>
                 <action>RegiaoForm</action>
             </menuitem>            
             <menuitem label='UF'>
