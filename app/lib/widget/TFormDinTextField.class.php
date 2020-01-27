@@ -26,8 +26,8 @@ class TFormDinTextField
     {
         $this->adiantiObj = new TEntry($id);
         if($intMaxLength>=1){
-            $this->adiantiObj->addValidation($strLabel, new TMaxValueValidator, array($intMaxLength));
-        }         
+            $this->adiantiObj->addValidation($strLabel, new TMaxLengthValidator, array($intMaxLength));
+        }
         if($boolRequired){
             $strLabel = empty($strLabel)?$id:$strLabel;
             $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
