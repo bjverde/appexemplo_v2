@@ -15,35 +15,29 @@ class MarcaForm extends TPage
         // create the form
         $this->form = new BootstrapFormBuilder(__CLASS__);
         $this->form->setFormTitle('Marca');
-
-        $metaTipoController = new MetaTipoController();
-        $listMetaTipo = $metaTipoController->getCombo();
+        $this->form->setClientValidation(true);
 
         // create the form fields
-        $id     = new TEntry('idtipo');
+        $t1     = new TEntry('t1');
         $t2     = new TEntry('t2');
+        $t3     = new TEntry('t3');
         
-        $descricaoLabel = 'Nome';
-        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,3,true,null,'xxxxi');
+        $descricaoLabel = 't1 FormDin';
+        $formDinTextField = new TFormDinTextField('t1fd',$descricaoLabel,3,true,null,'xxxxi');
         $descricao = $formDinTextField->getAdiantiObj();
-        
-        $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
-        $idmeta_tipo = $formDinSelectField->getAdiantiObj();
-        
-        $sit_ativosLabel = 'Ativo';
-        $formDinSwitch = new TFormDinSwitch('sit_ativo',$sit_ativosLabel,true);
-        $sit_ativos = $formDinSwitch->getAdiantiObj();
-        
+               
         // add the form fields
-        //$this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
-        //$this->form->addFields( [new TLabel($descricaoLabel, 'red')],  [$descricao] );
-        //$this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
-        $this->form->addFields( [new TLabel('T1')],    [$t1] );
-        $this->form->addFields( [new TLabel('T2', 'red')],    [$t2] );
+        $this->form->addFields( [new TLabel('T1, req, min(1), max(3)', 'red')],    [$t1] );
+        $this->form->addFields( [new TLabel('T2')],    [$t2] );
+        $this->form->addFields( [new TLabel('T3 req, max(5)', 'red')],    [$t3] );
+        $this->form->addFields( [new TLabel($descricaoLabel, 'red')],    [$descricao] );
         
-        //$id->addValidation('Cod', new TRequiredValidator);
-
-        $t2->addValidation('T2', new TMaxValueValidator, array(3));
+        $t1->addValidation('T1', new TMinLengthValidator, array(1));
+        $t1->addValidation('T1', new TMaxLengthValidator, array(3));
+        $t1->addValidation('T3', new TRequiredValidator);
+        
+        $t3->addValidation('T3', new TMaxLengthValidator, array(5));
+        $t3->addValidation('T3', new TRequiredValidator);
         
         // define the form action 
         $this->form->addAction('Send', new TAction(array($this, 'onSend')), 'far:check-circle green');
@@ -72,7 +66,7 @@ class MarcaForm extends TPage
         
         new TMessage('info', str_replace(',', '<br>', json_encode($data)));
         } catch (Exception $e){
-            new TMessage('error', json_encode($e->getMessage()) );
+            new TMessage('error', $e->getMessage() );
         }
     }
 
