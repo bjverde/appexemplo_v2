@@ -26,13 +26,15 @@ class MunicipioForm extends TPage
         // create the form fields
         $id     = new TEntry('idMetaTipo');
         $name   = new TEntry('descricao');
-        $formDinSwitch = new TFormDinSwitch('sit_ativo');
+        
+        $sit_ativosLabel = 'Ativo';
+        $formDinSwitch = new TFormDinSwitch('sit_ativo',$sit_ativosLabel,true);
         $sit_ativos = $formDinSwitch->getAdiantiObj();
 
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
-        $this->form->addFields( [new TLabel('Ativo', 'red')],  [$sit_ativos] );
+        $this->form->addFields( [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
         
         $id->addValidation('Cod', new TRequiredValidator);
         $name->addValidation('Name', new TRequiredValidator);
