@@ -28,9 +28,10 @@ class TipoForm extends TPage
 
         // create the form fields
         $id     = new TEntry('idtipo');
+        $t2     = new TEntry('t2');
         
         $descricaoLabel = 'Nome';
-        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,10,true);
+        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,3,true,null,'xxxxi');
         $descricao = $formDinTextField->getAdiantiObj();
         
         $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
@@ -44,8 +45,11 @@ class TipoForm extends TPage
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel($descricaoLabel, 'red')],  [$descricao] );
         $this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
+        $this->form->addFields( [new TLabel('T2', 'red')],    [$t2] );
         
         $id->addValidation('Cod', new TRequiredValidator);
+
+        $t2->addValidation('T2', new TMaxValueValidator, array(3));
         
         // define the form actions
         $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');

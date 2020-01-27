@@ -13,21 +13,28 @@ class TFormDinTextField
      * @param string $strLabel      - 2: Label do campo, usado para validações
      * @param integer $intMaxLength - 3: Tamanho máximo de caracteres
      * @param boolean $boolRequired - 4: Obrigatorio. DEFAULT = False.
-     * @return TCombo
+     * @param string $strValue      - 5: Texto preenchido ou valor default
+     * @param string $strExampleText- 6: Texto de exemplo ou placeholder 
+     * @return TEntry
      */
     public function __construct(string $id
                                ,string $strLabel
                                ,int $intMaxLength = null
-                               ,$boolRequired = false)
+                               ,$boolRequired = false
+                               ,string $strValue=null
+                               ,string $strExampleText =null)
     {
         $this->adiantiObj = new TEntry($id);
+        if($intMaxLength>=1){
+            $this->adiantiObj->addValidation($strLabel, new TMaxValueValidator, array($intMaxLength));
+        }         
         if($boolRequired){
             $strLabel = empty($strLabel)?$id:$strLabel;
             $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
         }
-        if(!empty($intMaxLength) && $intMaxLength>=1){
-            $this->adiantiObj->addValidation($strLabel, new TMaxValueValidator, array($intMaxLength));
-        }        
+        if(!empty($strExampleText)){
+            $this->adiantiObj->placeholder = $strExampleText;
+        } 
         return $this->getAdiantiObj();
     }
 
