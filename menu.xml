@@ -62,19 +62,19 @@
                 <action>RegiaoForm</action>
             </menuitem>            
             <menuitem label='UF'>
-                <icon>fa:code fa-table</icon>
+                <icon>fa:table fa-fw</icon>
                 <action>UfForm</action>
             </menuitem>
             <menuitem label='Município'>
-                <icon>fa:code fa-fw</icon>
-                <action>SystemPHPInfoView</action>
+                <icon>fa:table fa-fw</icon>
+                <action>MunicipioForm</action>
             </menuitem>
             <menuitem label='Meta Tipo'>
-                <icon>fa:code fa-table</icon>
+                <icon>fa:table fa-fw</icon>
                 <action>MetaTipoForm</action>
             </menuitem>
             <menuitem label='Tipo'>
-                <icon>fa:code fa-table</icon>
+                <icon>fa:table fa-fw</icon>
                 <action>TipoForm</action>
             </menuitem>            
         </menu>
