@@ -13,9 +13,8 @@ class MarcaForm extends TPage
         parent::__construct();
         
         // create the form
-        $this->form = new BootstrapFormBuilder(__CLASS__);
-        $this->form->setFormTitle('Marca');
-        $this->form->setClientValidation(true);
+        $formDin = new TFormDin(__CLASS__,'Marca');
+        $this->form = $formDin->getAdiantiObj();
 
         // create the form fields
         $t1     = new TEntry('t1');
