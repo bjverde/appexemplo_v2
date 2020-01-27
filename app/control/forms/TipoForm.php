@@ -28,20 +28,24 @@ class TipoForm extends TPage
 
         // create the form fields
         $id     = new TEntry('idtipo');
-        $name   = new TEntry('descricao');
+        
+        $descricaoLabel = 'Nome';
+        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,10,true);
+        $descricao = $formDinTextField->getAdiantiObj();
+        
         $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
         $idmeta_tipo = $formDinSelectField->getAdiantiObj();
+        
         $sit_ativosLabel = 'Ativo';
         $formDinSwitch = new TFormDinSwitch('sit_ativo',$sit_ativosLabel,true);
         $sit_ativos = $formDinSwitch->getAdiantiObj();
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
-        $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
+        $this->form->addFields( [new TLabel($descricaoLabel, 'red')],  [$descricao] );
         $this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
         
         $id->addValidation('Cod', new TRequiredValidator);
-        $name->addValidation('Name', new TRequiredValidator);
         
         // define the form actions
         $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
