@@ -23,13 +23,21 @@ class TipoForm extends TPage
         $this->form = new BootstrapFormBuilder(__CLASS__);
         $this->form->setFormTitle('Tipo');
 
+        $metaTipoController = new MetaTipoController();
+        $listMetaTipo = $metaTipoController->getCombo();
+
         // create the form fields
-        $id     = new TEntry('cod_regiao');
-        $name   = new TEntry('nom_regiao');
+        $id     = new TEntry('idtipo');
+        $name   = new TEntry('descricao');
+        $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
+        $idmeta_tipo = $formDinSelectField->getAdiantiObj();
+        $formDinSwitch = new TFormDinSwitch('sit_ativo');
+        $sit_ativos = $formDinSwitch->getAdiantiObj();
         
         // add the form fields
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
+        $this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel('Ativo', 'red')],  [$sit_ativos] );
         
         $id->addValidation('Cod', new TRequiredValidator);
         $name->addValidation('Name', new TRequiredValidator);
