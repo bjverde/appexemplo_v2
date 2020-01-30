@@ -6,7 +6,7 @@ use Adianti\Control\TAction;
 /**
  * Representes a DataGrid column
  *
- * @version    7.0
+ * @version    7.1
  * @package    widget
  * @subpackage datagrid
  * @author     Pablo Dall'Oglio
@@ -34,7 +34,7 @@ class TDataGridColumn
      * @param  $align = Column align (left, center, right)
      * @param  $width = Column Width (pixels)
      */
-    public function __construct($name, $label, $align = 'left', $width = NULL)
+    public function __construct($name, $label, $align, $width = NULL)
     {
         $this->name  = $name;
         $this->label = $label;
