@@ -17,7 +17,6 @@ class TipoForm extends TPage
         $this->setDatabase('form_exemplo'); // define the database
         $this->setActiveRecord('Tipo'); // define the Active Record
         $this->setDefaultOrder('idtipo', 'asc'); // define the default order
-        $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
         $this->form = new BootstrapFormBuilder(__CLASS__);
@@ -28,7 +27,6 @@ class TipoForm extends TPage
 
         // create the form fields
         $id     = new TEntry('idtipo');
-        $t2     = new TEntry('t2');
         
         $descricaoLabel = 'Nome';
         $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,3,true,null,'xxxxi');
@@ -45,11 +43,10 @@ class TipoForm extends TPage
         $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
         $this->form->addFields( [new TLabel($descricaoLabel, 'red')],  [$descricao] );
         $this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
-        $this->form->addFields( [new TLabel('T2', 'red')],    [$t2] );
+ 
         
         $id->addValidation('Cod', new TRequiredValidator);
 
-        $t2->addValidation('T2', new TMaxValueValidator, array(3));
         
         // define the form actions
         $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
@@ -63,11 +60,13 @@ class TipoForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('idtipo', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('descricao', 'Nome', 'left', '90%');
+        $col_id    = new TDataGridColumn('idtipo', 'Cod', 'right');
+        $col_name  = new TDataGridColumn('descricao', 'Nome', 'left');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
+        $this->datagrid->addColumn(new TDataGridColumn('idmeta_tipo', 'Meta Tipo'));
+        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo'));
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idtipo']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
