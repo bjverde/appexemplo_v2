@@ -22,56 +22,119 @@ class MarcaForm extends TPage
         $formDin = new TFormDin(__CLASS__,'Marca');
         $this->form = $formDin->getAdiantiObj();
 
-        // create the form fields
-        $t1     = new TEntry('t1');
-        $t2     = new TEntry('t2');
-        $t3     = new TEntry('t3');
-        
-        $descricaoLabel = 't1 FormDin';
-        $formDinTextField = new TFormDinTextField('t1fd',$descricaoLabel,3,true,null,'xxxxi');
-        $descricao = $formDinTextField->getAdiantiObj();
+        $nom_marcaLabel = 'Nome';
+        $formDinTextField = new TFormDinTextField('nom_marca',$nom_marcaLabel,3,true,null,'um nome para a Marca');
+        $nom_marca = $formDinTextField->getAdiantiObj();
                
         // add the form fields
-        $this->form->addFields( [new TLabel('T1, req, min(1), max(3)', 'red')],    [$t1] );
-        $this->form->addFields( [new TLabel('T2')],    [$t2] );
-        $this->form->addFields( [new TLabel('T3 req, max(5)', 'red')],    [$t3] );
-        $this->form->addFields( [new TLabel($descricaoLabel, 'red')],    [$descricao] );
+        $this->form->addFields( [new TLabel($nom_marcaLabel, 'red')],    [$nom_marca] );
         
-        $t1->addValidation('T1', new TMinLengthValidator, array(1));
-        $t1->addValidation('T1', new TMaxLengthValidator, array(3));
-        $t1->addValidation('T3', new TRequiredValidator);
+        // create the datagrid
+        $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
+        $this->datagrid->width = '100%';
         
-        $t3->addValidation('T3', new TMaxLengthValidator, array(5));
-        $t3->addValidation('T3', new TRequiredValidator);
+        // add the columns
+        $col_id    = new TDataGridColumn('idmarca', 'id', 'right');
+        $col_name  = new TDataGridColumn('nom_marca', 'Nome', 'left');
         
-        // define the form action 
-        $this->form->addAction('Send', new TAction(array($this, 'onSend')), 'far:check-circle green');
-        $this->form->addHeaderAction('Send', new TAction(array($this, 'onSend')), 'fa:rocket orange');
+        $this->datagrid->addColumn($col_id);
+        $this->datagrid->addColumn($col_name);
+        $this->datagrid->addColumn(new TDataGridColumn('pessoa->nome', 'Pessoa'));
         
+        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idmarca']);
+        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_marca']);
+        
+        // define row actions
+        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idmarca}'] );
+        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{idmarca}'] );
+        
+        $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
+        $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
+
+
+
+        // create the datagrid model
+        $this->datagrid->createModel();
+
+        // creates the page navigation
+        $this->pageNavigation = new TPageNavigation;
+        $this->pageNavigation->setAction(new TAction(array($this, 'onReload'))); 
+
+        $panel = new TPanelGroup('Lista de Regiões');
+        $panel->add( $this->datagrid );
+        $panel->addFooter($this->pageNavigation);
 
         // wrap the page content using vertical box
         $formDinSwitch = new TFormDinBreadCrumb(__CLASS__);
         $vbox = $formDinSwitch->getAdiantiObj();
         $vbox->add($this->form);
+        $vbox->add($panel);
         
         parent::add($vbox);
     }
 
     /**
-     * Get the post data
+     * Export datagrid as PDF
      */
-    public function onSend($param)
+    public function exportAsPDF($param)
     {
-        try{
-        // run form validation
-        $this->form->validate();
+        try
+        {
+            // string with HTML contents
+            $html = clone $this->datagrid;
+            $contents = file_get_contents('app/resources/styles-print.html') . $html->getContents();
+            
+            // converts the HTML template into PDF
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml($contents);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            
+            $file = 'app/output/datagrid-export.pdf';
+            
+            // write and open file
+            file_put_contents($file, $dompdf->output());
+            
+            $window = TWindow::create('Export', 0.8, 0.8);
+            $object = new TElement('object');
+            $object->data  = $file;
+            $object->type  = 'application/pdf';
+            $object->style = "width: 100%; height:calc(100% - 10px)";
+            $window->add($object);
+            $window->show();
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
+        }
+    }
 
-        $data = $this->form->getData();
-        $this->form->setData($data);
-        
-        new TMessage('info', str_replace(',', '<br>', json_encode($data)));
-        } catch (Exception $e){
-            new TMessage('error', $e->getMessage() );
+    /**
+     * Export datagrid as CSV
+     */
+    public function exportAsCSV($param)
+    {
+        try
+        {
+            // get datagrid raw data
+            $data = $this->datagrid->getOutputData();
+            
+            if ($data)
+            {
+                $file    = 'app/output/datagrid-export.csv';
+                $handler = fopen($file, 'w');
+                foreach ($data as $row)
+                {
+                    fputcsv($handler, $row);
+                }
+                
+                fclose($handler);
+                parent::openFile($file);
+            }
+        }
+        catch (Exception $e)
+        {
+            new TMessage('error', $e->getMessage());
         }
     }
 

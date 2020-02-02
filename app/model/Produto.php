@@ -11,6 +11,7 @@ class Produto extends TRecord
     
     
     private $marca;
+    private $tipo;
 
     /**
      * Constructor method
@@ -50,6 +51,33 @@ class Produto extends TRecord
     
         // returns the associated object
         return $this->marca;
+    }
+    
+    
+    /**
+     * Method set_tipo
+     * Sample of usage: $produto->tipo = $object;
+     * @param $object Instance of Tipo
+     */
+    public function set_tipo(Tipo $object)
+    {
+        $this->tipo = $object;
+        $this->idtipo = $object->id;
+    }
+    
+    /**
+     * Method get_tipo
+     * Sample of usage: $produto->tipo->attribute;
+     * @returns Tipo instance
+     */
+    public function get_tipo()
+    {
+        // loads the associated object
+        if (empty($this->tipo))
+            $this->tipo = new Tipo($this->idtipo_produto);
+    
+        // returns the associated object
+        return $this->tipo;
     }
     
 

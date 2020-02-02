@@ -60,20 +60,23 @@ class ProdutoForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('idtipo', 'Cod', 'right');
-        $col_name  = new TDataGridColumn('descricao', 'Nome', 'left');
+        $col_id    = new TDataGridColumn('idproduto', 'Cod', 'right');
+        $col_name  = new TDataGridColumn('nom_produto', 'Nome', 'left');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn(new TDataGridColumn('meta_tipo->descricao', 'Meta Tipo'));
-        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo'));
+        $this->datagrid->addColumn(new TDataGridColumn('marca->nom_marca', 'Marca'));
+        $this->datagrid->addColumn(new TDataGridColumn('modelo', 'Modelo'));
+        $this->datagrid->addColumn(new TDataGridColumn('versao', 'Versão'));
+        $this->datagrid->addColumn(new TDataGridColumn('marca->pessoa->nome', 'Empresa'));
+        $this->datagrid->addColumn(new TDataGridColumn('tipo->descricao', 'Tipo'));
         
-        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idtipo']);
-        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
+        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idproduto']);
+        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_produto']);
         
         // define row actions
-        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idtipo}'] );
-        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{idtipo}'] );
+        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idproduto}'] );
+        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{idproduto}'] );
         
         $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
         $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
@@ -85,7 +88,7 @@ class ProdutoForm extends TPage
         $this->pageNavigation = new TPageNavigation;
         $this->pageNavigation->setAction(new TAction(array($this, 'onReload'))); 
 
-        $panel = new TPanelGroup('Lista de Regiões');
+        $panel = new TPanelGroup('Lista de Produtos');
         $panel->add( $this->datagrid );
         $panel->addFooter($this->pageNavigation);
 
