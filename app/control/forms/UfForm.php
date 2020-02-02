@@ -17,7 +17,6 @@ class UfForm extends TPage
         $this->setDatabase('form_exemplo'); // define the database
         $this->setActiveRecord('Uf'); // define the Active Record
         $this->setDefaultOrder('cod_uf', 'asc'); // define the default order
-        $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
         $this->form = new BootstrapFormBuilder('form_uf');
@@ -57,7 +56,7 @@ class UfForm extends TPage
         $col_id   = new TDataGridColumn('cod_uf', 'Cod', 'right', '10%');
         $col_name = new TDataGridColumn('nom_uf', 'Nome');
         $sig_uf   = new TDataGridColumn('sig_uf', 'Sigla');
-        $cod_regiao = new TDataGridColumn('cod_regiao', 'cod_regiao');
+        $cod_regiao = new TDataGridColumn('regiao->nom_regiao', 'Região');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
@@ -77,9 +76,13 @@ class UfForm extends TPage
         // create the datagrid model
         $this->datagrid->createModel();
 
+        // creates the page navigation
+        $this->pageNavigation = new TPageNavigation;
+        $this->pageNavigation->setAction(new TAction(array($this, 'onReload')));        
+
         $panel = new TPanelGroup('Lista de UF');
         $panel->add( $this->datagrid );
-        $panel->addFooter('footer');
+        $panel->addFooter($this->pageNavigation);
         
         //$panel->addHeaderActionLink( 'Save as PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         //$panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
