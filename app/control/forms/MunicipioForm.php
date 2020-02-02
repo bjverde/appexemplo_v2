@@ -17,7 +17,6 @@ class MunicipioForm extends TPage
         $this->setDatabase('form_exemplo'); // define the database
         $this->setActiveRecord('Municipio'); // define the Active Record
         $this->setDefaultOrder('cod_municipio', 'asc'); // define the default order
-        $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
         $this->form = new BootstrapFormBuilder(__CLASS__);
@@ -72,9 +71,13 @@ class MunicipioForm extends TPage
         // create the datagrid model
         $this->datagrid->createModel();
 
+        // creates the page navigation
+        $this->pageNavigation = new TPageNavigation;
+        $this->pageNavigation->setAction(new TAction(array($this, 'onReload'))); 
+
         $panel = new TPanelGroup('Lista de Municipios');
         $panel->add( $this->datagrid );
-        //$panel->addFooter('footer');
+        $panel->addFooter($this->pageNavigation);
 
         $panel->addHeaderActionLink( 'Save as PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         $panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
