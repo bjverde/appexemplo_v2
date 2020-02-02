@@ -37,17 +37,24 @@ class TFormDinGrid
     }
 
     /**
-     * Inclui uma nova coluna
+     * Coluna do Grid Padronizado em BoorStrap
+     * Reconstruido FormDin 4 Sobre o Adianti 7.1
+     *
+     * @param  $action Callback to be executed
      * @param  string $name  = Name of the column in the database
      * @param  string $label = Text label that will be shown in the header
      * @param  string $align = Column align (left, center, right)
      * @param  string $width = Column Width (pixels)
+     * @return BootstrapFormBuilder
      */
-    public function addColumn($name, $label, $align='left', $width = NULL){
-        $column = new TDataGridColumn($name, $label, $align, $width);
-        $column->setAction( new TAction([$this, 'onReload']),   ['order' => $name]);
+    public function addColumn($action
+                            , string $name
+                            , string $label
+                            , string $align='left'
+                            , string $width = NULL){
+        $formDinGridColumn = new TFormDinGridColumn($action, $name, $label,$align,$width);
+        $column = $formDinGridColumn->getAdiantiObj();
         $this->adiantiObj->addColumn($column);
-        return $this->idGrid;
     }
 
     public function getIdGrid(){
