@@ -36,13 +36,15 @@ class MarcaForm extends TPage
         // add the columns
         $col_id    = new TDataGridColumn('idmarca', 'id', 'right');
         $col_name  = new TDataGridColumn('nom_marca', 'Nome', 'left');
+        $pessoa    = new TDataGridColumn('pessoa->nome', 'Pessoa');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn(new TDataGridColumn('pessoa->nome', 'Pessoa'));
+        $this->datagrid->addColumn($pessoa);
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idmarca']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_marca']);
+        $pessoa->setAction( new TAction([$this, 'onReload']), ['order' => 'pessoa->nome']);
         
         // define row actions
         $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idmarca}'] );
