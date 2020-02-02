@@ -7,10 +7,16 @@ class MarcaForm extends TPage
     protected $loaded;
     protected $pageNavigation;  // pagination component
     
+    // trait with onSave, onEdit, onDelete, onReload, onSearch...
+    use Adianti\Base\AdiantiStandardFormListTrait;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->setDatabase('form_exemplo'); // define the database
+        $this->setActiveRecord('Marca'); // define the Active Record
+        $this->setDefaultOrder('idmarca', 'asc'); // define the default order
         
         // create the form
         $formDin = new TFormDin(__CLASS__,'Marca');

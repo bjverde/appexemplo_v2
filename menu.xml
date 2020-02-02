@@ -51,7 +51,7 @@
         <menu>
             <menuitem label='Produto'>
                 <icon>fa:table fa-fw</icon>
-                <action>SystemModulesCheckView</action>
+                <action>ProdutoForm</action>
             </menuitem>        
             <menuitem label='Marca'>
                 <icon>fa:table fa-fw</icon>
