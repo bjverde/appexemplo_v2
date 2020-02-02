@@ -49,34 +49,34 @@
     <menuitem label='Tabelas de Apoio'>
         <icon>fa:cog fa-table</icon>
         <menu>
-            <menuitem label='Marca'>
-                <icon>fa:table fa-fw</icon>
-                <action>MarcaForm</action>
-            </menuitem>
             <menuitem label='Produto'>
                 <icon>fa:table fa-fw</icon>
                 <action>SystemModulesCheckView</action>
-            </menuitem>            
-            <menuitem label='Região'>
+            </menuitem>        
+            <menuitem label='Marca'>
                 <icon>fa:table fa-fw</icon>
-                <action>RegiaoForm</action>
-            </menuitem>            
-            <menuitem label='UF'>
-                <icon>fa:table fa-fw</icon>
-                <action>UfForm</action>
+                <action>MarcaForm</action>
             </menuitem>
             <menuitem label='Município'>
                 <icon>fa:table fa-fw</icon>
                 <action>MunicipioForm</action>
             </menuitem>
-            <menuitem label='Meta Tipo'>
+            <menuitem label='UF'>
                 <icon>fa:table fa-fw</icon>
-                <action>MetaTipoForm</action>
-            </menuitem>
+                <action>UfForm</action>
+            </menuitem>            
+            <menuitem label='Região'>
+                <icon>fa:table fa-fw</icon>
+                <action>RegiaoForm</action>
+            </menuitem>            
             <menuitem label='Tipo'>
                 <icon>fa:table fa-fw</icon>
                 <action>TipoForm</action>
-            </menuitem>            
+            </menuitem>
+            <menuitem label='Meta Tipo'>
+                <icon>fa:table fa-fw</icon>
+                <action>MetaTipoForm</action>
+            </menuitem>                        
         </menu>
     </menuitem>
     <menuitem label='Acesso'>
