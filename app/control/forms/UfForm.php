@@ -67,8 +67,8 @@ class UfForm extends TPage
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_regiao']);
         
         // define row actions
-        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{cod_regiao}'] );
-        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{cod_regiao}'] );
+        $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{cod_uf}'] );
+        $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{cod_uf}'] );
         
         $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
         $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
