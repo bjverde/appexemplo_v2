@@ -16,7 +16,7 @@ class TipoForm extends TPage
 
         $this->setDatabase('form_exemplo'); // define the database
         $this->setActiveRecord('Tipo'); // define the Active Record
-        $this->setDefaultOrder('idtipo', 'asc'); // define the default order
+        $this->setDefaultOrder('idtipo', 'desc'); // define the default order
         
         // create the form
         $this->form = new BootstrapFormBuilder(__CLASS__);
@@ -29,7 +29,7 @@ class TipoForm extends TPage
         $id     = new TEntry('idtipo');
         
         $descricaoLabel = 'Nome';
-        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,3,true,null,'xxxxi');
+        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,30,true,null,'xxxxi');
         $descricao = $formDinTextField->getAdiantiObj();
         
         $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
