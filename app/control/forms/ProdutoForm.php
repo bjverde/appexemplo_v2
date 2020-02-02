@@ -60,19 +60,26 @@ class ProdutoForm extends TPage
         $this->datagrid->width = '100%';
         
         // add the columns
-        $col_id    = new TDataGridColumn('idproduto', 'Cod', 'right');
-        $col_name  = new TDataGridColumn('nom_produto', 'Nome', 'left');
-        
-        $this->datagrid->addColumn($col_id);
-        $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn(new TDataGridColumn('marca->nom_marca', 'Marca'));
-        $this->datagrid->addColumn(new TDataGridColumn('modelo', 'Modelo'));
-        $this->datagrid->addColumn(new TDataGridColumn('versao', 'Versão'));
-        $this->datagrid->addColumn(new TDataGridColumn('marca->pessoa->nome', 'Empresa'));
-        $this->datagrid->addColumn(new TDataGridColumn('tipo->descricao', 'Tipo'));
-        
-        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idproduto']);
-        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_produto']);
+        $formDinGridColumn = new TFormDinGridColumn($this,'idproduto', 'Cod');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'nom_produto', 'Nome');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'marca->nom_marca', 'Marca');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'modelo', 'Modelo');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'versao', 'Versão');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'marca->pessoa->nome', 'Empresa');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+
+        $formDinGridColumn = new TFormDinGridColumn($this,'tipo->descricao', 'Tipo');
+        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
         
         // define row actions
         $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idproduto}'] );
