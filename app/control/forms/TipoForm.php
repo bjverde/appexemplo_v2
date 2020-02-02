@@ -65,7 +65,7 @@ class TipoForm extends TPage
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn(new TDataGridColumn('idmeta_tipo', 'Meta Tipo'));
+        $this->datagrid->addColumn(new TDataGridColumn('meta_tipo->descricao', 'Meta Tipo'));
         $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo'));
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idtipo']);
@@ -81,9 +81,13 @@ class TipoForm extends TPage
         // create the datagrid model
         $this->datagrid->createModel();
 
+        // creates the page navigation
+        $this->pageNavigation = new TPageNavigation;
+        $this->pageNavigation->setAction(new TAction(array($this, 'onReload'))); 
+
         $panel = new TPanelGroup('Lista de Regiões');
         $panel->add( $this->datagrid );
-        //$panel->addFooter('footer');
+        $panel->addFooter($this->pageNavigation);
 
         $panel->addHeaderActionLink( 'Save as PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         $panel->addHeaderActionLink( 'Save as CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );

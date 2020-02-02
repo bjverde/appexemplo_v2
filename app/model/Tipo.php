@@ -44,7 +44,7 @@ class Tipo extends TRecord
     {
         // loads the associated object
         if (empty($this->meta_tipo))
-            $this->meta_tipo = new MetaTipo($this->meta_tipo_id);
+            $this->meta_tipo = new MetaTipo($this->idmeta_tipo);
     
         // returns the associated object
         return $this->meta_tipo;
