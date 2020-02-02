@@ -56,30 +56,16 @@ class ProdutoForm extends TPage
         //$id->setEditable(FALSE);
         
         // create the datagrid
-        $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
-        $this->datagrid->width = '100%';
-        
-        // add the columns
-        $formDinGridColumn = new TFormDinGridColumn($this,'idproduto', 'Cod');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'nom_produto', 'Nome');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'marca->nom_marca', 'Marca');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'modelo', 'Modelo');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'versao', 'Versão');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'marca->pessoa->nome', 'Empresa');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
-
-        $formDinGridColumn = new TFormDinGridColumn($this,'tipo->descricao', 'Tipo');
-        $this->datagrid->addColumn($formDinGridColumn->getAdiantiObj());
+        $formDinGrid = new TFormDinGrid($this,__CLASS__,'Lista de Produtos','idproduto');
+        $formDinGrid->addColumn('idproduto', 'Cod');
+        $formDinGrid->addColumn('nom_produto', 'Nome');
+        $formDinGrid->addColumn('marca->nom_marca', 'Marca');
+        $formDinGrid->addColumn('modelo', 'Modelo');
+        $formDinGrid->addColumn('versao', 'Versão');
+        $formDinGrid->addColumn('marca->pessoa->nome', 'Empresa');
+        $formDinGrid->addColumn('tipo->descricao', 'Tipo');
+        $this->datagrid = $formDinGrid->getAdiantiObj();
+    
         
         // define row actions
         $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idproduto}'] );
