@@ -47,7 +47,7 @@ class TFormDinGrid
      * @param  string $label = Text label that will be shown in the header
      * @param  string $align = Column align (left, center, right)
      * @param  string $width = Column Width (pixels)
-     * @return BootstrapFormBuilder
+     * @return TDataGridColumn
      */
     public function addColumn(string $name
                             , string $label
@@ -57,6 +57,7 @@ class TFormDinGrid
         $formDinGridColumn = new TFormDinGridColumn($action, $name, $label,$align,$width);
         $column = $formDinGridColumn->getAdiantiObj();
         $this->adiantiObj->addColumn($column);
+        return $column;
     }
 
     public function getAction(){
