@@ -33,6 +33,9 @@ class TFormDinTextField
             $strLabel = empty($strLabel)?$id:$strLabel;
             $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
         }
+        if(!empty($strValue)){
+            $this->adiantiObj->setValue($strValue);
+        }
         if(!empty($strExampleText)){
             $this->adiantiObj->placeholder = $strExampleText;
         } 
