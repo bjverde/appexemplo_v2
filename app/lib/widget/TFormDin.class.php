@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Classe para criação de formulários web para entrada de dados
+ * Reconstruido FormDin 4 Sobre o Adianti 7.1
+ * 
+ * @author Reinaldo A. Barrêto Junior
+ */
 class TFormDin
 {
     protected $adiantiObj;
@@ -36,6 +42,13 @@ class TFormDin
         $this->adiantiObj->addFields($label, $campo);
     }
 
+    protected function getLabelField($strLabel,$boolRequired)
+    {
+        $formDinLabelField = new TFormDinLabelField($strLabel,$boolRequired);
+        $label = $formDinLabelField->getAdiantiObj();
+        return $label;
+    }
+
     /**
      * Campo de entrada de dados texto livre
      * Reconstruido FormDin 4 Sobre o Adianti 7
@@ -53,11 +66,86 @@ class TFormDin
                                 ,int $intMaxLength = null
                                 ,$boolRequired = false
                                 ,string $strValue=null
-                                ,string $strExampleText =null){
+                                ,string $strExampleText =null)
+    {
         $formDinTextField = new TFormDinTextField($id,$strLabel,$intMaxLength,$boolRequired,$strValue,$strExampleText);
         $objField = $formDinTextField->getAdiantiObj();
-        $formDinLabelField = new TFormDinLabelField($strLabel,$boolRequired);
-        $label = $formDinLabelField->getAdiantiObj();
+        $label = $this->getLabelField($strLabel,$boolRequired);
         $this->addFields([$label], [$objField]);
+    }
+
+    /**
+     * Cria um RadioGroup com efeito visual de Switch
+     * Reconstruido FormDin 4 Sobre o Adianti 7
+     * 
+     * @param string $id            - 1: ID do campo
+     * @param string $strLabel      - 2: Label do campo
+     * @param boolean $boolRequired - 3: Obrigatorio
+     * @param array $itens
+     * @return mixed TRadioGroup
+     */
+    public function addSwitchField(string $id
+                                  ,string $strLabel
+                                  ,$boolRequired = false
+                                  ,array $itens= null)
+    {
+        $formDinSwitch = new TFormDinSwitch($id,$strLabel,$boolRequired,$itens);
+        $objField = $formDinSwitch->getAdiantiObj();
+        $label = $this->getLabelField($strLabel,$boolRequired);
+        $this->addFields([$label], [$objField]);
+    }
+
+    /**
+     * Campo do tipo SelectField ou Combo Simples
+     * Reconstruido FormDin 4 Sobre o Adianti 7
+     *
+     * @param string $id            - 1: ID do campo
+     * @param string $strLabel      - 2: Label do campo
+     * @param boolean $boolRequired - 3: Obrigatorio
+     * @param array $mixOptions     - 4: array dos valores. no formato "key=>value"
+     * @return TCombo
+     */
+    public function addSelectField(string $id
+                                  ,string $strLabel
+                                  ,$boolRequired = false
+                                  , array $mixOptions)
+    {
+        $formDinSelectField = new TFormDinSelectField($id,$strLabel,$boolRequired,$mixOptions);
+        $objField = $formDinSelectField->getAdiantiObj();
+        $label = $this->getLabelField($strLabel,$boolRequired);
+        $this->addFields([$label], [$objField]);
+    }
+
+    //----------------------------------------------------------------
+    //----------------------------------------------------------------
+    //----------------------------------------------------------------
+    //----------------------------------------------------------------s    
+
+    /**
+     * @deprecated version
+     * @return void
+     */
+    public function setShowCloseButton(){        
+    }
+
+    /**
+     * @deprecated version
+     * @return void
+     */
+    public function setFlat(){        
+    }
+
+    /**
+     * @deprecated version
+     * @return void
+     */
+    public function setMaximize(){        
+    }
+
+    /**
+     * @deprecated version
+     * @return void
+     */
+    public function setHelpOnLine(){        
     }
 }

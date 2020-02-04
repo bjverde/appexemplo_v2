@@ -24,6 +24,7 @@ class TFormDinCnpjField
                                ,string $strExampleText =null)
     {
         $this->adiantiObj = new TEntry($id);
+        $this->adiantiObj->setId($id);
         $this->adiantiObj->addValidation($strLabel, new TCNPJValidator);
         $this->adiantiObj->setMask('99.999.999/9999-99', $boolSendMask);
         if($boolRequired){

@@ -17,6 +17,7 @@ class TFormDinSelectField
     public function __construct(string $id,string $strLabel,$boolRequired = false, array $mixOptions)
     {
         $this->adiantiObj = new TCombo($id);
+        $this->adiantiObj->setId($id);
         $this->adiantiObj->addItems($mixOptions);
         if($boolRequired){
             $strLabel = empty($strLabel)?$id:$strLabel;
