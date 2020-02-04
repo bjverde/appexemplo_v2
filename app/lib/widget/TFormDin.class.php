@@ -50,6 +50,25 @@ class TFormDin
     }
 
     /**
+    * Adiciona um campo oculto ao layout
+    * Reconstruido FormDin 4 Sobre o Adianti 7
+    *
+    * @param string $strName       - 1: Id do Campo
+    * @param string $strValue      - 2: Valor inicial
+    * @param boolean $boolRequired - 3: True = Obrigatorio; False (Defalt) = Não Obrigatorio  
+    * @return THidden
+    */
+    public function addHiddenField(string $id
+                                ,string $strValue=null
+                                ,$boolRequired = false)
+    {
+        $formField = new TFormDinHiddenField($id,$strValue,$boolRequired);
+        $objField = $formField->getAdiantiObj();
+        $this->adiantiObj->addFields([$objField]);
+        return $objField;
+    }
+
+    /**
      * Campo de entrada de dados texto livre
      * Reconstruido FormDin 4 Sobre o Adianti 7
      *
