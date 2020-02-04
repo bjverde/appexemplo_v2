@@ -17,15 +17,37 @@ class TFormDinGrid
      * @param string $strName       - 1: ID do Grid
      * @param string $strTitle      - 2: Titulo do Grid
      * @param string $strKeyField   - 3: Id da chave primaria
+     * 
      * @return BootstrapFormBuilder
+     */
+
+    /**
+     * Grid Padronizado em BoorStrap
+     * Reconstruido FormDin 4 Sobre o Adianti 7
+     *
+     * @param [type] $action         - 1: função callback $this na classe origem
+     * @param string $idGrid         - 2: ID do Grid recebe __CLASS__
+     * @param string $title          - 3: Titulo do Grid
+     * @param string $key            - 4: Id da chave primaria
+     * @param boolean $boolDataTable
+     * @param boolean $boolDefaultClick
      */
     public function __construct($action
                                ,string $idGrid
                                ,string $title
-                               ,string $key)
+                               ,string $key
+                               ,$boolDataTable = false
+                               ,$boolDefaultClick = true
+                               )
     {
         $this->adiantiObj = new BootstrapDatagridWrapper(new TDataGrid);
         $this->adiantiObj->width = '100%';
+        if($boolDataTable){
+            $this->adiantiObj->datatable = 'true';
+        }
+        if(!$boolDefaultClick){
+            $this->adiantiObj->disableDefaultClick();
+        }
         $this->setAction($action);
         $this->setIdGrid($idGrid);
         $this->setTitle($title);
