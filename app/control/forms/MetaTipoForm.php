@@ -20,23 +20,19 @@ class MetaTipoForm extends TPage
         $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
-        $this->form = new BootstrapFormBuilder(__CLASS__);
-        $this->form->setFormTitle('Meta Tipo');
+        $frm = new TFormDin(__CLASS__,'Meta Tipo');
+        $frm->addTextField('descricao','Descrição',30,true,null,'Informe uma descrição para o Meta tipo');
+        $frm->addSwitchField('sit_ativo','Ativo',true);
+        $this->form = $frm->getAdiantiObj();
 
-        // create the form fields
         $id     = new TEntry('idMetaTipo');
-        $name   = new TEntry('descricao');
-        $sit_ativosLabel = 'Ativo';
-        $formDinSwitch = new TFormDinSwitch('sit_ativo',$sit_ativosLabel,true);
-        $sit_ativos = $formDinSwitch->getAdiantiObj();
-
         // add the form fields
-        $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
-        $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
-        $this->form->addFields( [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
+        $label = new TLabel('Cod');
+        $label->{'class'} = 'xxxx'; 
+        $this->form->addFields( [$label],    [$id] );
         
         $id->addValidation('Cod', new TRequiredValidator);
-        $name->addValidation('Name', new TRequiredValidator);
+
         
         // define the form actions
         $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
