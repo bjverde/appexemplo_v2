@@ -42,20 +42,20 @@ class MetaTipoForm extends TPage
         //$id->setEditable(FALSE);
         
         // create the datagrid
-        $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
-        $this->datagrid->width = '100%';
-        
-        // add the columns
-        $col_id    = new TDataGridColumn('idMetaTipo', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('descricao', 'Nome');
-        $col_sit_ativo  = new TDataGridColumn('sit_ativo', 'Ativo');
-        
-        $this->datagrid->addColumn($col_id);
-        $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn($col_sit_ativo);
-        
-        $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idMetaTipo']);
-        $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
+        $formDinGrid = new TFormDinGrid($this,__CLASS__,'Lista de Meta Tipos','idMetaTipo');
+        $formDinGrid->addColumn('idMetaTipo', 'Cod', 'right');
+        $formDinGrid->addColumn('descricao', 'Nome');
+        $columnAtivo = $formDinGrid->addColumn('sit_ativo', 'Ativo');
+        $columnAtivo->setTransformer( function ($value) {
+            if ($value=='S')
+            {
+                return "Sim";
+            }else{
+                return "Não";
+            }
+            return $value;
+        });
+        $this->datagrid = $formDinGrid->getAdiantiObj();
         
         // define row actions
         $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idMetaTipo}'] );
