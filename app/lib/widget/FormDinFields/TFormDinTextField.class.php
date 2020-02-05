@@ -36,13 +36,17 @@ class TFormDinTextField
         if(!empty($strValue)){
             $this->adiantiObj->setValue($strValue);
         }
-        if(!empty($strExampleText)){
-            $this->adiantiObj->placeholder = $strExampleText;
-        } 
+        $this->setExampleText($strExampleText);
         return $this->getAdiantiObj();
     }
 
     public function getAdiantiObj(){
         return $this->adiantiObj;
+    }
+
+    public function setExampleText($placeholder){
+        if(!empty($placeholder)){
+            $this->adiantiObj->placeholder = $placeholder;
+        }
     }
 }

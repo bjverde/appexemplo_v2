@@ -87,7 +87,7 @@ class TFormDin
      * @param string $strValue        -  6: texto preenchido
      * @param boolean $boolNewLine    -  7: DESATIVADO Nova linha
      * @param string $strHint         -  9: DESATIVADO
-     * @param string $strExampleText  -  9: Texto de exemplo
+     * @param string $strExampleText  -  9: PlaceHolder um Texto de exemplo
      * @param boolean $boolLabelAbove - 10: DESATIVADO - Label sobre
      * @param boolean $boolNoWrapLabel- 11: DESATIVADO
      * @return TEntry
@@ -96,15 +96,20 @@ class TFormDin
                                 ,string $strLabel
                                 ,int $intMaxLength = null
                                 ,$boolRequired = false
-                                ,int $intSize
+                                ,int $intSize=null
                                 ,string $strValue=null
                                 ,$boolNewLine = true
-                                ,string $strHint
+                                ,string $strHint = null
                                 ,string $strExampleText =null
                                 ,$boolLabelAbove=null
-                                ,$boolNoWrapLabel)
+                                ,$boolNoWrapLabel = null)
     {
-        $formDinTextField = new TFormDinTextField($id,$strLabel,$intMaxLength,$boolRequired,$strValue,$strExampleText);
+        $formDinTextField = new TFormDinTextField($id
+                                                 ,$strLabel
+                                                 ,$intMaxLength
+                                                 ,$boolRequired
+                                                 ,$strValue);
+        $formDinTextField->setExampleText($strExampleText);
         $objField = $formDinTextField->getAdiantiObj();
         $label = $this->getLabelField($strLabel,$boolRequired);
         $this->addFields([$label], [$objField]);
