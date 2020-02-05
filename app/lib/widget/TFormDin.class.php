@@ -137,22 +137,50 @@ class TFormDin
     }
 
     /**
-     * Campo do tipo SelectField ou Combo Simples
-     * 
-     * FormDin 5 - Alguns parametros foram DESATIVADO
-     * por não funcionar no Adianti 7.1 e foram mantidos
-     * para diminuir o impacto sobre a migração
-     *
-     * @param string $id            - 1: ID do campo
-     * @param string $strLabel      - 2: Label do campo
-     * @param boolean $boolRequired - 3: Obrigatorio
-     * @param array $mixOptions     - 4: array dos valores. no formato "key=>value"
-     * @return TCombo
-     */
+    * Adicionar campo tipo combobox ou menu select
+    *
+    * FormDin 5 - Alguns parametros foram DESATIVADO
+    * por não funcionar no Adianti 7.1 e foram mantidos
+    * para diminuir o impacto sobre a migração
+    *
+    * $mixOptions = array no formato "key=>value". No FormDin 5 só permite array PHP
+    * $strKeyColumn = nome da coluna que será utilizada para preencher os valores das opções
+    * $strDisplayColumn = nome da coluna que será utilizada para preencher as opções que serão exibidas para o usuário
+    * $strDataColumns = informações extras do banco de dados que deverão ser adicionadas na tag option do campo select
+    *
+    * <code>
+    * 	// exemplos
+    * 	$frm->addSelectField('tipo','Tipo:',false,'1=Tipo 1,2=Tipo 2');
+    * 	$frm->addSelectField('tipo','Tipo:',false,'tipo');
+    * 	$frm->addSelectField('tipo','Tipo:',false,'select * from tipo order by descricao');
+    * 	$frm->addSelectField('tipo','Tipo:',false,'tipo|descricao like "F%"');
+    *
+    *  //Exemplo espcial - Campo obrigatorio e sem senhum elemento pre selecionado.
+    *  $frm->addSelectField('tipo','Tipo',true,$tiposDocumentos,null,null,null,null,null,null,' ','');
+    * </code>
+    *
+    * @param string  $strName        - 1: ID do campo
+    * @param string  $strLabel       - 2: Label do campo
+    * @param boolean $boolRequired   - 3: Obrigatorio. Default FALSE
+    * @param mixed   $mixOptions     - 4: array dos valores. no formato "key=>value". No FormDin 5 só permite array PHP
+    * @param boolean $boolNewLine    - 5: DESATIVADO Default TRUE = cria nova linha , FALSE = fica depois do campo anterior
+    * @param boolean $boolLabelAbove - 6: DESATIVADO Default FALSE = Label mesma linha, TRUE = Label acima
+    * @param mixed   $mixValue       - 7: DESATIVADO Valor DEFAULT, informe o ID do array
+    * @param boolean $boolMultiSelect- 8: DESATIVADO Default FALSE = SingleSelect, TRUE = MultiSelect
+    * @param integer $intSize             - 9: DESATIVADO Default 1. Num itens que irão aparecer. 
+    * @param integer $intWidth           - 10: DESATIVADO Largura em Pixels
+    * @param string  $strFirstOptionText - 11: DESATIVADO First Key in Display
+    * @param string  $strFirstOptionValue- 12: DESATIVADO Frist Valeu in Display, use value NULL for required. Para o valor DEFAULT informe o ID do $mixOptions e $strFirstOptionText = '' e não pode ser null
+    * @param string  $strKeyColumn       - 13: DESATIVADO
+    * @param string  $strDisplayColumn   - 14: DESATIVADO
+    * @param string  $boolNoWrapLabel    - 15: DESATIVADO
+    * @param string  $strDataColumns     - 16: DESATIVADO
+    * @return TCombo
+    */     
     public function addSelectField(string $id
                                   ,string $strLabel
                                   ,$boolRequired = false
-                                  , array $mixOptions)
+                                  ,array $mixOptions)
     {
         $formDinSelectField = new TFormDinSelectField($id,$strLabel,$boolRequired,$mixOptions);
         $objField = $formDinSelectField->getAdiantiObj();
