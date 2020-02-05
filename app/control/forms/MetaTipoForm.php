@@ -21,7 +21,8 @@ class MetaTipoForm extends TPage
         
         // create the form
         $frm = new TFormDin(__CLASS__,'Meta Tipo');
-        $frm->addTextField('descricao','Descrição',30,true,null,'Informe uma descrição para o Meta tipo');
+        $descricao = $frm->addTextField('descricao','Descrição',30,true);
+        $descricao->placeholder='Informe uma descrição para o Meta tipo';
         $frm->addSwitchField('sit_ativo','Ativo',true);
         $this->form = $frm->getAdiantiObj();
 
