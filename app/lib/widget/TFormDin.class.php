@@ -2,7 +2,9 @@
 
 /**
  * Classe para criação de formulários web para entrada de dados
- * Reconstruido FormDin 4 Sobre o Adianti 7.1
+ * 
+ * Esse é o FormDin 5, que é um reconstrução do 
+ * FormDin 4.8 sobre o Adianti 7.1
  * 
  * @author Reinaldo A. Barrêto Junior
  */
@@ -12,7 +14,6 @@ class TFormDin
     
     /**
      * Formulario Padronizado em BoorStrap
-     * Reconstruido FormDin 4 Sobre o Adianti 7
      *
      * @param string $strName       - 1: Name do Form
      * @param string $strTitle      - 2: Titulo que irá aparecer no Form
@@ -51,7 +52,10 @@ class TFormDin
 
     /**
     * Adiciona um campo oculto ao layout
-    * Reconstruido FormDin 4 Sobre o Adianti 7
+    * 
+    * FormDin 5 - Alguns parametros foram DESATIVADO
+    * por não funcionar no Adianti 7.1 e foram mantidos
+    * para diminuir o impacto sobre a migração
     *
     * @param string $strName       - 1: Id do Campo
     * @param string $strValue      - 2: Valor inicial
@@ -69,39 +73,56 @@ class TFormDin
     }
 
     /**
-     * Campo de entrada de dados texto livre
-     * Reconstruido FormDin 4 Sobre o Adianti 7
+     * Adicionar campo entrada de dados texto livre.
+     * 
+     * FormDin 5 - Alguns parametros foram DESATIVADO
+     * por não funcionar no Adianti 7.1 e foram mantidos
+     * para diminuir o impacto sobre a migração
      *
-     * @param string $id            - 1: ID do campo
-     * @param string $strLabel      - 2: Label do campo, usado para validações
-     * @param integer $intMaxLength - 3: Tamanho máximo de caracteres
-     * @param boolean $boolRequired - 4: Obrigatorio. DEFAULT = False.
-     * @param string $strValue      - 5: Texto preenchido ou valor default
-     * @param string $strExampleText- 6: Texto de exemplo ou placeholder 
+     * @param string $id              -  1: ID do campo
+     * @param string $strLabel        -  2: Label do campo
+     * @param integer $intMaxLength   -  3: tamanho máximo de caracteres
+     * @param boolean $boolRequired   -  4: Obrigatorio ou não. DEFAULT = False.
+     * @param integer $intSize        -  5: DESATIVADO quantidade de caracteres visíveis
+     * @param string $strValue        -  6: texto preenchido
+     * @param boolean $boolNewLine    -  7: DESATIVADO Nova linha
+     * @param string $strHint         -  9: DESATIVADO
+     * @param string $strExampleText  -  9: Texto de exemplo
+     * @param boolean $boolLabelAbove - 10: DESATIVADO - Label sobre
+     * @param boolean $boolNoWrapLabel- 11: DESATIVADO
      * @return TEntry
      */
     public function addTextField(string $id
                                 ,string $strLabel
                                 ,int $intMaxLength = null
                                 ,$boolRequired = false
+                                ,int $intSize
                                 ,string $strValue=null
-                                ,string $strExampleText =null)
+                                ,$boolNewLine = true
+                                ,string $strHint
+                                ,string $strExampleText =null
+                                ,$boolLabelAbove=null
+                                ,$boolNoWrapLabel)
     {
         $formDinTextField = new TFormDinTextField($id,$strLabel,$intMaxLength,$boolRequired,$strValue,$strExampleText);
         $objField = $formDinTextField->getAdiantiObj();
         $label = $this->getLabelField($strLabel,$boolRequired);
         $this->addFields([$label], [$objField]);
+        return $objField;
     }
 
     /**
-     * Cria um RadioGroup com efeito visual de Switch
-     * Reconstruido FormDin 4 Sobre o Adianti 7
+     * Cria um RadioGroup com efeito visual de Switch dp BootStrap
+     * 
+     * FormDin 5 - Alguns parametros foram DESATIVADO
+     * por não funcionar no Adianti 7.1 e foram mantidos
+     * para diminuir o impacto sobre a migração
      * 
      * @param string $id            - 1: ID do campo
      * @param string $strLabel      - 2: Label do campo
      * @param boolean $boolRequired - 3: Obrigatorio
-     * @param array $itens
-     * @return mixed TRadioGroup
+     * @param array $itens          - 4: Informe um array do tipo "chave=>valor", com maximo de 2 elementos
+     * @return TRadioGroup
      */
     public function addSwitchField(string $id
                                   ,string $strLabel
@@ -112,11 +133,15 @@ class TFormDin
         $objField = $formDinSwitch->getAdiantiObj();
         $label = $this->getLabelField($strLabel,$boolRequired);
         $this->addFields([$label], [$objField]);
+        return $objField;
     }
 
     /**
      * Campo do tipo SelectField ou Combo Simples
-     * Reconstruido FormDin 4 Sobre o Adianti 7
+     * 
+     * FormDin 5 - Alguns parametros foram DESATIVADO
+     * por não funcionar no Adianti 7.1 e foram mantidos
+     * para diminuir o impacto sobre a migração
      *
      * @param string $id            - 1: ID do campo
      * @param string $strLabel      - 2: Label do campo
@@ -133,6 +158,7 @@ class TFormDin
         $objField = $formDinSelectField->getAdiantiObj();
         $label = $this->getLabelField($strLabel,$boolRequired);
         $this->addFields([$label], [$objField]);
+        return $objField;
     }
 
     //----------------------------------------------------------------
@@ -141,28 +167,28 @@ class TFormDin
     //----------------------------------------------------------------s    
 
     /**
-     * @deprecated version
+     * @deprecated mantido apenas para diminir o impacto na migração do FormDin 4 para FormDin 5 sobre Adianti 7.1
      * @return void
      */
     public function setShowCloseButton(){        
     }
 
     /**
-     * @deprecated version
+     * @deprecated mantido apenas para diminir o impacto na migração do FormDin 4 para FormDin 5 sobre Adianti 7.1
      * @return void
      */
     public function setFlat(){        
     }
 
     /**
-     * @deprecated version
+     * @deprecated mantido apenas para diminir o impacto na migração do FormDin 4 para FormDin 5 sobre Adianti 7.1
      * @return void
      */
     public function setMaximize(){        
     }
 
     /**
-     * @deprecated version
+     * @deprecated mantido apenas para diminir o impacto na migração do FormDin 4 para FormDin 5 sobre Adianti 7.1
      * @return void
      */
     public function setHelpOnLine(){        
