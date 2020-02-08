@@ -53,7 +53,7 @@ class TFormDinNumericField
         $decimalsSeparator = $this->getDecimalsSeparator();
         $thousandSeparator = $this->getThousandSeparator();
         $this->setLabel($strLabel);
-        $this->adiantiObj = new TNumeric($strLabel, $decimalPlaces, $decimalsSeparator, $thousandSeparator, $replaceOnPost = true);
+        $this->adiantiObj = new TNumeric($id, $decimalPlaces, $decimalsSeparator, $thousandSeparator, $replaceOnPost = true);
         $this->adiantiObj->setId($id);
         $this->setRequired($boolRequired);
         if(!empty($strValue)){
