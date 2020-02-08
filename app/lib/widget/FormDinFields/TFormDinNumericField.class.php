@@ -2,8 +2,13 @@
 
 class TFormDinNumericField
 {
+    const COMMA = ',';
+    const DOT = '.';
+
     protected $adiantiObj;
-    
+    protected $label;
+    protected $decimalsSeparator;
+    protected $thousandSeparator;
 
     /**
      * Campo de entrada de dados texto livre
@@ -42,27 +47,90 @@ class TFormDinNumericField
                                ,$boolAllowNull=null
                                ,$boolLabelAbove=null
                                ,$boolNoWrapLabel=null
-                               ,$strHint=null)
+                               ,$strHint=null
+                               ,string $strExampleText =null)
     {
+        $decimalsSeparator = $this->getDecimalsSeparator();
+        $thousandSeparator = $this->getThousandSeparator();
+        $this->setLabel($strLabel);
         $this->adiantiObj = new TNumeric($strLabel, $decimalPlaces, $decimalsSeparator, $thousandSeparator, $replaceOnPost = true);
         $this->adiantiObj->setId($id);
-        if($intMaxLength>=1){
-            $this->adiantiObj->addValidation($strLabel, new TMaxLengthValidator, array($intMaxLength));
-        }
-        if($boolRequired){
-            $strLabel = empty($strLabel)?$id:$strLabel;
-            $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
-        }
+        $this->setRequired($boolRequired);
         if(!empty($strValue)){
             $this->adiantiObj->setValue($strValue);
         }
-        if(!empty($strExampleText)){
-            $this->adiantiObj->placeholder = $strExampleText;
-        } 
+        $this->setMinValue($strMinValue);
+        $this->setMaxValue($strMaxValue);
+        $this->setExampleText($strExampleText);
         return $this->getAdiantiObj();
     }
 
     public function getAdiantiObj(){
         return $this->adiantiObj;
+    }
+
+    public function getLabel(){
+        return $this->label;
+    }
+    public function setLabel($label){
+        $this->label = $label;
+    }
+
+    public function getDecimalsSeparator(){
+        $separator = null;
+        if(empty($this->decimalsSeparator)){
+            $separator = self::COMMA;
+        }else{
+            $separator = $this->decimalsSeparator;
+        }
+        return $separator;
+    }
+
+    public function setDecimalsSeparator($decimalsSeparator){
+        $this->decimalsSeparator = $decimalsSeparator;
+    }
+
+    public function getThousandSeparator(){
+        $separator = null;
+        if(empty($this->thousandSeparator)){
+            $separator = self::DOT;
+        }else{
+            $separator = $this->thousandSeparator;
+        }
+        return $separator;
+    }
+
+    public function setThousandSeparator($thousandSeparator){
+        $this->thousandSeparator = $thousandSeparator;
+    }
+
+    public function setRequired($boolRequired){
+        if($boolRequired){
+            $strLabel = $this->getLabel();
+            $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
+        }
+    }
+
+    public function setExampleText($placeholder)
+    {
+        if(!empty($placeholder)){
+            $this->adiantiObj->placeholder = $placeholder;
+        }
+    }
+
+    public function setMinValue($strMinValue)
+    {
+        if(is_int($strMinValue)){
+            $strLabel = $this->getLabel();
+            $this->adiantiObj->addValidation($strLabel, new TMinValueValidator, array($strMinValue));
+        }
+    }
+
+    public function setMaxValue($strMaxValue)
+    {
+        if(is_int($strMaxValue)){
+            $strLabel = $this->getLabel();
+            $this->adiantiObj->addValidation($strLabel, new TMaxValueValidator, array($strMaxValue));
+        }
     }
 }
