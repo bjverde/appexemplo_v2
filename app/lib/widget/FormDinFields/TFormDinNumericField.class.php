@@ -59,6 +59,7 @@ class TFormDinNumericField
         if(!empty($strValue)){
             $this->adiantiObj->setValue($strValue);
         }
+        $this->setMaxLength($intMaxLength);
         $this->setMinValue($strMinValue);
         $this->setMaxValue($strMaxValue);
         $this->setExampleText($strExampleText);
@@ -118,6 +119,13 @@ class TFormDinNumericField
         }
     }
 
+    public function setMaxLength($intMaxLength)
+    {
+        if($intMaxLength>=1){
+            $strLabel = $this->getLabel();
+            $this->adiantiObj->addValidation($strLabel, new TMaxLengthValidator, array($intMaxLength));
+        }
+    }
     public function setMinValue($strMinValue)
     {
         if(is_int($strMinValue)){
