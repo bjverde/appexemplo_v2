@@ -11,7 +11,7 @@
 class TFormDinFoneField
 {
     protected $adiantiObj;
-    
+    protected $label;    
 
 	/**
 	 * Adiciona campo de entrada para telefone e fax
@@ -36,6 +36,7 @@ class TFormDinFoneField
                                ,string $strValue=null
                                ,string $strExampleText =null)
     {
+        $this->setLabel($strLabel);
         $this->adiantiObj = new TEntry($id);
         $this->adiantiObj->setId($id);
         $this->adiantiObj->setMask('99999-9999', $boolSendMask);
@@ -51,9 +52,16 @@ class TFormDinFoneField
         return $this->adiantiObj;
     }
 
+    public function getLabel(){
+        return $this->label;
+    }
+    public function setLabel($label){
+        $this->label = $label;
+    }
+
     public function setRequired($boolRequired){
         if($boolRequired){
-            $strLabel = empty($strLabel)?$id:$strLabel;
+            $strLabel = $this->getLabel();
             $this->adiantiObj->addValidation($strLabel, new TRequiredValidator);
         }
     }
