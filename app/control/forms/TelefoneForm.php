@@ -38,30 +38,86 @@ class TelefoneForm extends TPage
     {           
         if (isset($param))
         {
-          $link = 'https://qualoperadora.info/consulta';
-          $dados = array
-          (
-           'tel'=> preg_replace('/[^0-9]/','',$param['code'].$param['tel'])
-           ,'bto'=>'Descobrir Operadora'
-          );
-          $dados = http_build_query($dados,null,"");
-          $ch = curl_init($link);
-          var_dump($link);
-          curl_setopt($ch, CURLOPT_REFERER, $link);
-          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-          curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_POST, true);
-          curl_setopt($ch,CURLOPT_POSTFIELDS, $dados);
-          //curl_setopt($ch, CURLOPT_COOKIEJAR, $arquivo);
-          var_dump($ch);
-          $html = curl_exec($ch);
-          var_dump($html);
-          $txt  = preg_split("/:/", $html);
-          var_dump($txt);
-          print_r($txt);
+          $html = $this->getHtml($param['code'],$param['tel']);
+          $dom = new DOMDocument();
+          $htmlBodyDom = $this->getBodyDom($html,$dom);
+          $nodeDom = $this->getElementsByClass($htmlBodyDom, 'div', 'resultado');
+          //$stringbody = $dom->saveHTML($nodeDom); //Converte novamente em string
+          var_dump($nodeDom);
           exit();
-          curl_close($ch);
         }
+    }
+
+    /**
+     * Recebe o numero de telefone e retorna a string html da pagina
+     *
+     * @param string $code
+     * @param string $tel
+     * @return string 
+     */
+    public function getHtml($code,$tel)
+    {
+        $link = 'https://qualoperadora.info/consulta';
+        $dados = array
+        (
+         'tel'=> preg_replace('/[^0-9]/','',$code.$tel)
+         ,'bto'=>'Descobrir Operadora'
+        );
+
+        $ch = curl_init($link);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        //Para funcionar com SSL 
+        //https://stackoverflow.com/questions/9774349/php-curl-not-working-with-https
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $dados);
+
+        $html = curl_exec($ch);
+        curl_close($ch);
+        return $html;
+    }
+
+    /**
+     * Pega o conteudo de um HTML
+     * https://stackoverflow.com/questions/24415544/php-get-body-from-html-page
+     * @param [type] $html
+     */
+    public function getBodyDom($html,$dom) {      
+        
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        libxml_use_internal_errors(false);
+        $bodies = $dom->getElementsByTagName('body');
+        $body = $bodies->item(0);
+        //$stringbody = $dom->saveHTML($body); //Converte novamente em string
+        //var_dump($stringbody);
+        return $body;
+      }
+
+      /**
+       * Busca a tag com um determinada classe
+       * https://stackoverflow.com/questions/20728839/get-element-by-classname-with-domdocument-method
+       * @param DOMDocument $parentNode
+       * @param string $tagName
+       * @param string $className
+       * @return array
+       */
+      public function getElementsByClass(&$parentNode, $tagName, $className) {
+        $nodes=array();
+    
+        $childNodeList = $parentNode->getElementsByTagName($tagName);
+        for ($i = 0; $i < $childNodeList->length; $i++) {
+            $temp = $childNodeList->item($i);
+            if (stripos($temp->getAttribute('class'), $className) !== false) {
+                $nodes[]=$temp;
+            }
+        }
+    
+        return $nodes;
     }
 }
