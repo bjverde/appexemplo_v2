@@ -35,7 +35,7 @@ class TelefoneForm extends TPage
     }
 
     public function onTelefone($param)    
-    {           
+    {
         if (isset($param))
         {
           $html = $this->getHtml($param['code'],$param['tel']);
@@ -43,7 +43,15 @@ class TelefoneForm extends TPage
           $htmlBodyDom = $this->getBodyDom($html,$dom);
           $nodeDom = $this->getElementsByClass($htmlBodyDom, 'div', 'resultado');
           //$stringbody = $dom->saveHTML($nodeDom); //Converte novamente em string
-          var_dump($nodeDom);
+          foreach($nodeDom as $key=>$objDom){
+            echo 'Registro: '.$key;
+            $strinHTML = $dom->saveHTML($objDom);
+            ini_set('xdebug.var_display_max_depth', '-1');
+            ini_set('xdebug.var_display_max_children', '-1');
+            ini_set('xdebug.var_display_max_data', '-1');
+            var_dump($strinHTML);
+            echo '<hr>';
+          }
           exit();
         }
     }
@@ -57,11 +65,12 @@ class TelefoneForm extends TPage
      */
     public function getHtml($code,$tel)
     {
+        $numcompleto = preg_replace('/[^0-9]/','',$code.$tel);
+        var_dump($numcompleto);
         $link = 'https://qualoperadora.info/consulta';
         $dados = array
         (
-         'tel'=> preg_replace('/[^0-9]/','',$code.$tel)
-         ,'bto'=>'Descobrir Operadora'
+         'tel'=> $numcompleto
         );
 
         $ch = curl_init($link);
