@@ -42,7 +42,7 @@
             </menuitem>
             <menuitem label='Telefone'>
                 <icon>fa:cube fa-fw</icon>
-                <action>SystemModulesCheckView</action>
+                <action>TelefoneForm</action>
             </menuitem>
         </menu>
     </menuitem>
