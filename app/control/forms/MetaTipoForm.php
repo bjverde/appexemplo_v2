@@ -7,8 +7,10 @@ class MetaTipoForm extends TPage
     protected $loaded;
     protected $pageNavigation;  // pagination component
     
-    // trait with onSave, onEdit, onDelete, onReload, onSearch...
-    use Adianti\Base\AdiantiStandardFormListTrait;
+    use Adianti\Base\AdiantiStandardFormTrait {
+		onSave as traitOnSave;
+	}
+    use Adianti\base\AdiantiStandardListTrait;
 
     public function __construct()
     {
@@ -25,14 +27,6 @@ class MetaTipoForm extends TPage
         $descricao->placeholder='Informe uma descrição para o Meta tipo';
         $frm->addSwitchField('sit_ativo','Ativo',true);
         $this->form = $frm->getAdiantiObj();
-
-        $id     = new TEntry('idMetaTipo');
-        // add the form fields
-        $label = new TLabel('Cod');
-        $label->{'class'} = 'xxxx'; 
-        $this->form->addFields( [$label],    [$id] );
-        
-        $id->addValidation('Cod', new TRequiredValidator);
 
         
         // define the form actions
@@ -83,6 +77,21 @@ class MetaTipoForm extends TPage
         
         parent::add($vbox);
     }
+
+    function onSave()
+    {
+        $this->traitOnSave();
+        $this->clear();
+    }
+
+    /**
+     * Clear filters
+     */
+    function clear()
+    {
+        $this->clearFilters();
+        $this->onReload();
+    }    
 
     /**
      * Export datagrid as PDF
