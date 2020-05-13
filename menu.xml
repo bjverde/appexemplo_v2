@@ -19,6 +19,10 @@
                 <icon>fa:cube fa-fw</icon>
                 <action>SystemModulesCheckView</action>
             </menuitem>
+                        <menuitem label='xxxx'>
+                <icon>fa:cube fa-fw</icon>
+                <action>SystemProgramList</action>
+            </menuitem>
         </menu>
     </menuitem>
     <menuitem label='Pessoas'>

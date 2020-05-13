@@ -55,9 +55,15 @@ class MetaTipoForm extends TPage
         // define row actions
         $action1 = new TDataGridAction([$this, 'onEdit'],   ['key' => '{idMetaTipo}'] );
         $action2 = new TDataGridAction([$this, 'onDelete'], ['key' => '{idMetaTipo}'] );
+        $action2->class='btn btn-default btn-sm';
+        $action2->style='float:right;';
+        $action2->setLabel('Delete');
+        $action2->setImage('far:edit blue');
         
         $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
-        $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
+        //$this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
+
+        $this->datagrid->actions[] = $action2;
         
         // create the datagrid model
         $this->datagrid->createModel();
