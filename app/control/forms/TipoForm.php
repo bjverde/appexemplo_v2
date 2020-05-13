@@ -23,7 +23,7 @@ class TipoForm extends TPage
         //====================================================================
         $frm = new TFormDin('Tipo');
         $frm->addHiddenField('idtipo');
-        $frm->addTextField('descricao','Nome',30,true,3,'aa');
+        $frm->addTextField('descricao','Nome',30,true);
 
         $metaTipoController = new MetaTipoController();
         $listMetaTipo = $metaTipoController->getCombo();
@@ -32,11 +32,7 @@ class TipoForm extends TPage
 
         $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
         $this->form = $frm->show();
-
-        // define the form actions
-        //$this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
-        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
-
+        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');        
 
         
         // create the datagrid
