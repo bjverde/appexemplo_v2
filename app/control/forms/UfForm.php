@@ -18,7 +18,27 @@ class UfForm extends TPage
         $this->setActiveRecord('Uf'); // define the Active Record
         $this->setDefaultOrder('cod_uf', 'asc'); // define the default order
         
-        // create the form
+        //====================================================================
+        //             FORMDIN 5 sobre ADIANTI 7.X
+        //====================================================================
+        $frm = new TFormDin('Região');
+        
+        $frm->addTextField('cod_uf','Cod',30,true);
+        $frm->addTextField('nom_uf','Nome',30,true);
+        $frm->addTextField('sig_uf','Sigla',30,true);
+
+        $regiaoController = new RegiaoController();
+        $listRegiao = $regiaoController->getCombo();
+        $frm->addSelectField('cod_regiao','Região', true, $listRegiao);
+
+        $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
+        $this->form = $frm->show();
+        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
+
+        //====================================================================
+        //             FORM ADIANTI 7.X PADAO
+        //====================================================================  
+        /*
         $this->form = new BootstrapFormBuilder('form_uf');
         $this->form->setFormTitle('Uf');
 
@@ -47,6 +67,7 @@ class UfForm extends TPage
 
         // make id not editable
         //$id->setEditable(FALSE);
+        */
         
         // create the datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);

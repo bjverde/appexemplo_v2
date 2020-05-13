@@ -18,42 +18,26 @@ class TipoForm extends TPage
         $this->setActiveRecord('Tipo'); // define the Active Record
         $this->setDefaultOrder('idtipo', 'desc'); // define the default order
         
-        // create the form
-        $this->form = new BootstrapFormBuilder(__CLASS__);
-        $this->form->setFormTitle('Tipo');
+        //====================================================================
+        //             FORMDIN 5 sobre ADIANTI 7.X
+        //====================================================================
+        $frm = new TFormDin('Tipo');
+        $frm->addHiddenField('idtipo');
+        $frm->addTextField('descricao','Nome',30,true,3,'aa');
 
         $metaTipoController = new MetaTipoController();
         $listMetaTipo = $metaTipoController->getCombo();
+        $frm->addSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
+        $frm->addSwitchField('sit_ativo','Ativo',true);
 
-        // create the form fields
-        $id     = new TEntry('idtipo');
-        
-        $descricaoLabel = 'Nome';
-        $formDinTextField = new TFormDinTextField('descricao',$descricaoLabel,30,true,null,'xxxxi');
-        $descricao = $formDinTextField->getAdiantiObj();
-        
-        $formDinSelectField = new TFormDinSelectField('idmeta_tipo','Meta Tipo', true, $listMetaTipo);
-        $idmeta_tipo = $formDinSelectField->getAdiantiObj();
-        
-        $sit_ativosLabel = 'Ativo';
-        $formDinSwitch = new TFormDinSwitch('sit_ativo',$sit_ativosLabel,true);
-        $sit_ativos = $formDinSwitch->getAdiantiObj();
-        
-        // add the form fields
-        $this->form->addFields( [new TLabel('Cod', 'red')],    [$id] );
-        $this->form->addFields( [new TLabel($descricaoLabel, 'red')],  [$descricao] );
-        $this->form->addFields( [new TLabel('Meta Tipo', 'red')],  [$idmeta_tipo], [new TLabel($sit_ativosLabel, 'red')],  [$sit_ativos] );
- 
-        
-        $id->addValidation('Cod', new TRequiredValidator);
+        $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
+        $this->form = $frm->show();
 
-        
         // define the form actions
-        $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
+        //$this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
         $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
 
-        // make id not editable
-        //$id->setEditable(FALSE);
+
         
         // create the datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);

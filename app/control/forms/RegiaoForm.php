@@ -19,7 +19,22 @@ class RegiaoForm extends TPage
         $this->setDefaultOrder('cod_regiao', 'asc'); // define the default order
         $this->setLimit(-1); // turn off limit for datagrid
         
-        // create the form
+        //====================================================================
+        //             FORMDIN 5 sobre ADIANTI 7.X
+        //====================================================================
+        $frm = new TFormDin('Região');
+        
+        $frm->addTextField('cod_regiao','Cod',30,true);
+        $frm->addTextField('nom_regiao','Nome',30,true);
+
+        $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
+        $this->form = $frm->show();
+        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
+
+        //====================================================================
+        //             FORM ADIANTI 7.X PADAO
+        //====================================================================        
+        /*
         $this->form = new BootstrapFormBuilder('form_regiao');
         $this->form->setFormTitle('Região');
 
@@ -40,7 +55,12 @@ class RegiaoForm extends TPage
 
         // make id not editable
         //$id->setEditable(FALSE);
+        */
         
+
+        //====================================================================
+        //             GRID ADIANTI 7.X PADAO
+        //====================================================================         
         // create the datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->width = '100%';
