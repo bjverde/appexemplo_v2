@@ -1,10 +1,11 @@
 <?php
 /*
- * Formdin Framework
- * Copyright (C) 2012 Ministério do Planejamento
- * Criado por Luís Eugênio Barbosa
- * Essa versão é um Fork https://github.com/bjverde/formDin
- *
+ * ----------------------------------------------------------------------------
+ * Formdin 5 Framework
+ * SourceCode https://github.com/bjverde/formDin5
+ * @author Reinaldo A. Barrêto Junior
+ * 
+ * É uma reconstrução do FormDin 4 Sobre o Adianti 7
  * ----------------------------------------------------------------------------
  * This file is part of Formdin Framework.
  *
@@ -28,9 +29,9 @@
  * modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
  * do Software Livre (FSF).
  *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
+ * Este programa é distribuí1do na esperança que possa ser útil, mas SEM NENHUMA
  * GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
- * APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
+ * APLICAÇÃO EM PARTICULAR. Veja a Licen?a Pública Geral GNU/LGPL em portugu?s
  * para maiores detalhes.
  *
  * Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
@@ -38,22 +39,35 @@
  * ou escreva para a Fundação do Software Livre (FSF) Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
  */
-class CountHelper
+
+class TFormDinGridColumn
 {
+    protected $adiantiObj;
+    
     /**
-     * Avoid the problem warning of PHP 7.2.X
-     * @param array|object $element
-     * @return number
+     * Coluna do Grid Padronizado em BoorStrap
+     * Reconstruido FormDin 4 Sobre o Adianti 7.1
+     *
+     * @param  $action Callback to be executed
+     * @param  string $name  = Name of the column in the database
+     * @param  string $label = Text label that will be shown in the header
+     * @param  string $align = Column align (left, center, right)
+     * @param  string $width = Column Width (pixels)
+     * @return BootstrapFormBuilder
      */
-    public static function count($element) 
+    public function __construct($action
+                              , string $name
+                              , string $label
+                              , string $align='left'
+                              , string $width = NULL)
     {
-    	$isArray  = is_array( $element );
-    	$isObject = is_object( $element );
-    	$result   = 0;
-    	if( $isArray || $isObject ){
-    		$result = count( $element );
-    	}
-    	return $result;
+        $this->adiantiObj = new TDataGridColumn($name, $label,$align,$width);
+        $tAction = new TAction([$action, 'onReload']);
+        $this->adiantiObj->setAction( $tAction , ['order' => $name]);
+        return $this->getAdiantiObj();
+    }
+
+    public function getAdiantiObj(){
+        return $this->adiantiObj;
     }
 }
-?>
