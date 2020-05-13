@@ -23,14 +23,17 @@ class MetaTipoForm extends TPage
         
         // create the form
         $frm = new TFormDin('Meta Tipo');
+        $frm->addHiddenField('idMetaTipo');
         $descricao = $frm->addTextField('descricao','Descrição',30,true);
         $descricao->setPlaceHolder('Informe uma descrição para o Meta tipo');
         $frm->addSwitchField('sit_ativo','Ativo',true);
+
+        $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
         $this->form = $frm->show();
 
         
         // define the form actions
-        $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
+        //$this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
         $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
 
         // make id not editable
