@@ -19,7 +19,7 @@ class ProdutoForm extends TPage
         $this->setDefaultOrder('idproduto', 'asc'); // define the default order
         
         // create the form
-        $formDin = new TFormDin(__CLASS__,'Produto');
+        $formDin = new TFormDin('Produto');
         $this->form = $formDin->getAdiantiObj();
 
         $metaTipoController = new MetaTipoController();

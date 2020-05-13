@@ -22,11 +22,11 @@ class MetaTipoForm extends TPage
         $this->setLimit(-1); // turn off limit for datagrid
         
         // create the form
-        $frm = new TFormDin(__CLASS__,'Meta Tipo');
+        $frm = new TFormDin('Meta Tipo');
         $descricao = $frm->addTextField('descricao','Descrição',30,true);
-        $descricao->placeholder='Informe uma descrição para o Meta tipo';
+        $descricao->setPlaceHolder('Informe uma descrição para o Meta tipo');
         $frm->addSwitchField('sit_ativo','Ativo',true);
-        $this->form = $frm->getAdiantiObj();
+        $this->form = $frm->show();
 
         
         // define the form actions
@@ -61,9 +61,7 @@ class MetaTipoForm extends TPage
         $action2->setImage('far:edit blue');
         
         $this->datagrid->addAction($action1, 'Edit',   'far:edit blue');
-        //$this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
-
-        $this->datagrid->actions[] = $action2;
+        $this->datagrid->addAction($action2, 'Delete', 'far:trash-alt red');
         
         // create the datagrid model
         $this->datagrid->createModel();

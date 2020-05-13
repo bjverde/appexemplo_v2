@@ -19,7 +19,7 @@ class MarcaForm extends TPage
         $this->setDefaultOrder('idmarca', 'asc'); // define the default order
         
         // create the form
-        $formDin = new TFormDin(__CLASS__,'Marca');
+        $formDin = new TFormDin('Marca');
         $this->form = $formDin->getAdiantiObj();
 
         $nom_marcaLabel = 'Nome';
