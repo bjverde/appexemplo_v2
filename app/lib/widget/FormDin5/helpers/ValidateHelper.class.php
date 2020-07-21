@@ -5,7 +5,7 @@
  * SourceCode https://github.com/bjverde/formDin5
  * @author Reinaldo A. Barrêto Junior
  * 
- * É uma reconstrução do FormDin 4 Sobre o Adianti 7
+ * É uma reconstrução do FormDin 4 Sobre o Adianti 7.X
  * ----------------------------------------------------------------------------
  * This file is part of Formdin Framework.
  *
@@ -29,9 +29,9 @@
  * modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
  * do Software Livre (FSF).
  *
- * Este programa é distribuí1do na esperança que possa ser útil, mas SEM NENHUMA
+ * Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
  * GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
- * APLICAÇÃO EM PARTICULAR. Veja a Licen?a Pública Geral GNU/LGPL em portugu?s
+ * APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
  * para maiores detalhes.
  *
  * Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
@@ -41,13 +41,14 @@
  */
 class ValidateHelper
 {
-    const TRIGGER_ERROR_NOTICIE = 'TRIGGER_ERROR_NOTICIE';
-    const TRIGGER_ERROR_WARNING = 'TRIGGER_ERROR_WARNING';
-    const TRIGGER_ERROR_ERROR   = 'TRIGGER_ERROR_ERROR';
-    const TYPE_ERRO_EXECEPTION = 'TYPE_ERRO_EXECEPTION';
-    const TYPE_ERRO_MSG_DECREP = 'TYPE_ERRO_MSG_DECREP';
-    const TYPE_ERRO_MSG_NOT_IMPLEMENTED = 'TYPE_ERRO_MSG_NOT_IMPLEMENTED';
-    const TYPE_ERRO_MSG_CHANGE = 'TYPE_ERRO_MSG_CHANGE';
+    const DEPRECATED = 'DEPRECATED';
+    const NOTICIE = 'NOTICIE';
+    const WARNING = 'WARNING';
+    const ERROR   = 'ERROR';
+    const EXECEPTION = 'EXECEPTION';
+    const MSG_DECREP = 'MSG_DECREP';
+    const MSG_NOT_IMPLEMENTED = 'MSG_NOT_IMPLEMENTED';
+    const MSG_CHANGE = 'MSG_CHANGE';
     
     public static function methodLine($method,$line,$nameMethodValidate)
     {
@@ -111,11 +112,11 @@ class ValidateHelper
     //--------------------------------------------------------------------------------
     public static function triggerError($msg,$typeErro)
     {
-        if($typeErro == self::TYPE_ERRO_EXECEPTION){
+        if($typeErro == self::EXECEPTION){
             throw new InvalidArgumentException($msg);
-        }else if($typeErro == self::TRIGGER_ERROR_ERROR){
-            trigger_error($msg, E_ERROR);
-        }else if($typeErro == self::TRIGGER_ERROR_WARNING){
+        }else if($typeErro == self::ERROR){
+            trigger_error($msg, E_USER_ERROR);
+        }else if($typeErro == self::WARNING){
             trigger_error($msg, E_USER_WARNING);
         }else{
             trigger_error($msg, E_USER_NOTICE);
@@ -125,9 +126,9 @@ class ValidateHelper
     public static function typeErrorMsg($typeErroMsg)
     {
         $complemento = null;
-        if($typeErroMsg==self::TYPE_ERRO_MSG_NOT_IMPLEMENTED){
+        if($typeErroMsg==self::MSG_NOT_IMPLEMENTED){
             $complemento = ' não foi implementado!';
-        }else if($typeErroMsg == self::TYPE_ERRO_MSG_CHANGE){
+        }else if($typeErroMsg == self::MSG_CHANGE){
             $complemento = ' FOI ALTERADO!';
         }else{
             $complemento = ' FOI DESCONTINUADO!!';
@@ -152,15 +153,23 @@ class ValidateHelper
         }
     }
     //--------------------------------------------------------------------------------
-    public static function migrarMensage($mensagem,$typeErro,$typeErroMsg,$class,$method,$line)
+    public static function migrarMensage($mensagem,$typeErro,$typeErroMsg,$class,$method,$line,$arquivo=null)
     {
         $test = isset($mensagem) && !empty($mensagem);
         if($test){
             $complemento = self::typeErrorMsg($typeErroMsg);
-
+            
+            if(!empty($arquivo)){
+                $arquivo = explode(DIRECTORY_SEPARATOR, $arquivo);
+                $arquivo = ', no arquivo: '.end($arquivo);
+            }
             $msg = TFormDinMessage::ERROR_FD5_PARAM_MIGRA
                 .$complemento
                 .': '.$mensagem
+                .'. Classe: '.$class
+                .', Metodo: '.$method
+                .', na linha: '.$line
+                .$arquivo
                 ;
             self::triggerError($msg,$typeErro);
         }

@@ -5,7 +5,7 @@
  * SourceCode https://github.com/bjverde/formDin5
  * @author Reinaldo A. Barrêto Junior
  * 
- * É uma reconstrução do FormDin 4 Sobre o Adianti 7
+ * É uma reconstrução do FormDin 4 Sobre o Adianti 7.X
  * ----------------------------------------------------------------------------
  * This file is part of Formdin Framework.
  *
@@ -29,9 +29,9 @@
  * modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
  * do Software Livre (FSF).
  *
- * Este programa é distribuí1do na esperança que possa ser útil, mas SEM NENHUMA
+ * Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
  * GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
- * APLICAÇÃO EM PARTICULAR. Veja a Licen?a Pública Geral GNU/LGPL em portugu?s
+ * APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
  * para maiores detalhes.
  *
  * Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
@@ -43,30 +43,35 @@
 class TFormDinGridColumn
 {
     protected $adiantiObj;
+    protected $action;
     
     /**
      * Coluna do Grid Padronizado em BoorStrap
      * Reconstruido FormDin 4 Sobre o Adianti 7.1
      *
-     * @param  $action Callback to be executed
-     * @param  string $name  = Name of the column in the database
-     * @param  string $label = Text label that will be shown in the header
-     * @param  string $align = Column align (left, center, right)
-     * @param  string $width = Column Width (pixels)
+     * @param  string $name      - 1: Name of the column in the database
+     * @param  string $label     - 2: Text label that will be shown in the header
+     * @param  string $width     - 3: Column Width (pixels)
+     * @param  string $align     - 4: Column align (left|right|center|justify)
      * @return BootstrapFormBuilder
      */
-    public function __construct($action
-                              , string $name
+    public function __construct(string $name
                               , string $label
-                              , string $align='left'
-                              , string $width = NULL)
+                              , string $width = NULL
+                              , string $align = 'left'
+                              )
     {
-        $this->adiantiObj = new TDataGridColumn($name, $label,$align,$width);
-        $tAction = new TAction([$action, 'onReload']);
-        $this->adiantiObj->setAction( $tAction , ['order' => $name]);
+        $column = new TDataGridColumn($name, $label,$align,$width);
+        $this->setAdiantiObj($column);
         return $this->getAdiantiObj();
     }
 
+    public function setAdiantiObj($adiantiObj){
+        if( empty($adiantiObj) ){
+            throw new InvalidArgumentException(TFormDinMessage::ERROR_FD5_OBJ_ADI);
+        }        
+        return $this->adiantiObj=$adiantiObj;
+    }
     public function getAdiantiObj(){
         return $this->adiantiObj;
     }

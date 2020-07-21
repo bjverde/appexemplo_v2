@@ -40,36 +40,18 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
  */
 
-class TFormDinHiddenField
+class RequestHelper
 {
-    protected $adiantiObj;
-    
-
-    /**
-    * Adiciona um campo oculto ao layout
-    * Reconstruido FormDin 4 Sobre o Adianti 7
-    *
-    * @param string $strName       - 1: Id do Campo
-    * @param string $strValue      - 2: Valor inicial
-    * @param boolean $boolRequired - 3: True = Obrigatorio; False (Defalt) = Não Obrigatorio  
-    * @return THidden
-    */
-    public function __construct(string $id
-                               ,string $strValue=null
-                               ,$boolRequired = false)
+    public static function get($atributeName) 
     {
-        $this->adiantiObj = new THidden($id);
-        $this->adiantiObj->setId($id);
-        if($boolRequired){
-            $this->adiantiObj->addValidation($id, new TRequiredValidator);
-        }
-        if(!empty($strValue)){
-            $this->adiantiObj->setValue($strValue);
-        }
-        return $this->getAdiantiObj();
+        $result = ArrayHelper::get($_REQUEST, $atributeName);
+        return $result;
     }
-
-    public function getAdiantiObj(){
-        return $this->adiantiObj;
+    
+    public static function getDefaultValeu($atributeName,$DefaultValue) 
+    {
+        $result = ArrayHelper::getDefaultValeu($_REQUEST, $atributeName, $DefaultValue);
+        return $result;
     }
 }
+?>
