@@ -51,15 +51,15 @@ class MunicipioForm extends TPage
         
         // add the columns
         $col_id    = new TDataGridColumn('cod_municipio', 'Cod', 'right', '10%');
-        $col_name  = new TDataGridColumn('nom_municipio', 'Nome');
-        $col_uf    = new TDataGridColumn('uf->nom_uf', 'UF');
-        $col_regiao= new TDataGridColumn('uf->regiao->nom_regiao', 'Região');
+        $col_name  = new TDataGridColumn('nom_municipio', 'Nome','left');
+        $col_uf    = new TDataGridColumn('uf->nom_uf', 'UF','left');
+        $col_regiao= new TDataGridColumn('uf->regiao->nom_regiao', 'Região','left');
 
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
         $this->datagrid->addColumn($col_uf);
         $this->datagrid->addColumn($col_regiao);
-        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo'));
+        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo','left'));
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'cod_municipio']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'nom_municipio']);
