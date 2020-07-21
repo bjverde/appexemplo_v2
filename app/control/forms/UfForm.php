@@ -75,9 +75,9 @@ class UfForm extends TPage
         
         // add the columns
         $col_id   = new TDataGridColumn('cod_uf', 'Cod', 'right', '10%');
-        $col_name = new TDataGridColumn('nom_uf', 'Nome');
-        $sig_uf   = new TDataGridColumn('sig_uf', 'Sigla');
-        $cod_regiao = new TDataGridColumn('regiao->nom_regiao', 'Região');
+        $col_name = new TDataGridColumn('nom_uf', 'Nome','left');
+        $sig_uf   = new TDataGridColumn('sig_uf', 'Sigla','left');
+        $cod_regiao = new TDataGridColumn('regiao->nom_regiao', 'Região','left');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
