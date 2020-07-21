@@ -45,8 +45,8 @@ class TipoForm extends TPage
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
-        $this->datagrid->addColumn(new TDataGridColumn('meta_tipo->descricao', 'Meta Tipo'));
-        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo'));
+        $this->datagrid->addColumn(new TDataGridColumn('meta_tipo->descricao', 'Meta Tipo', 'left'));
+        $this->datagrid->addColumn(new TDataGridColumn('sit_ativo', 'Ativo', 'left'));
         
         $col_id->setAction( new TAction([$this, 'onReload']),   ['order' => 'idtipo']);
         $col_name->setAction( new TAction([$this, 'onReload']), ['order' => 'descricao']);
