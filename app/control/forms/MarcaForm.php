@@ -36,7 +36,7 @@ class MarcaForm extends TPage
         // add the columns
         $col_id    = new TDataGridColumn('idmarca', 'id', 'right');
         $col_name  = new TDataGridColumn('nom_marca', 'Nome', 'left');
-        $pessoa    = new TDataGridColumn('pessoa->nome', 'Pessoa');
+        $pessoa    = new TDataGridColumn('pessoa->nome', 'Pessoa', 'left');
         
         $this->datagrid->addColumn($col_id);
         $this->datagrid->addColumn($col_name);
