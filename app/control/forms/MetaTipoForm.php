@@ -40,8 +40,8 @@ class MetaTipoForm extends TPage
         //$id->setEditable(FALSE);
         
         // create the datagrid
-        $formDinGrid = new TFormDinGrid($this,__CLASS__,'Lista de Meta Tipos','idMetaTipo');
-        $formDinGrid->addColumn('idMetaTipo', 'Cod', 'right');
+        $formDinGrid = new TFormDinGrid($this,'gd','Lista de Meta Tipos','idMetaTipo');
+        $formDinGrid->addColumn('idMetaTipo', 'Cod', null,'right');
         $formDinGrid->addColumn('descricao', 'Nome');
         $columnAtivo = $formDinGrid->addColumn('sit_ativo', 'Ativo');
         $columnAtivo->setTransformer( function ($value) {
