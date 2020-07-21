@@ -21,7 +21,30 @@ class MetaTipoForm extends TPage
         $this->setDefaultOrder('idMetaTipo', 'asc'); // define the default order
         $this->setLimit(-1); // turn off limit for datagrid
         
-        // create the form
+        /*****************************
+        // FORM ADIANTI 7.X
+        $this->form = new BootstrapFormBuilder('MetaTipo');
+        $this->form->setFormTitle('Meta Tipo');
+
+        // create the form fields
+        $id     = new TEntry('cod_regiao');
+        $name   = new TEntry('nom_regiao');
+        
+        // add the form fields
+        $this->form->addFields( [new TLabel('ID', 'red')],    [$id] );
+        $this->form->addFields( [new TLabel('Nome', 'red')],  [$name] );
+        
+        $name->addValidation('Name', new TRequiredValidator);
+        
+        // define the form actions
+        $this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
+        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
+
+        // make id not editable
+        $id->setEditable(FALSE);
+        *****************************/
+
+        // FORMDIN 5
         $frm = new TFormDin('Meta Tipo');
         $frm->addHiddenField('idMetaTipo');
         $descricao = $frm->addTextField('descricao','Descrição',30,true);
@@ -29,15 +52,8 @@ class MetaTipoForm extends TPage
         $frm->addSwitchField('sit_ativo','Ativo',true);
 
         $frm->setAction( 'Save', 'onSave', $this, null, 'fa:save', 'green' );
+        $frm->setAction( 'Clear', 'onClear', $this, null, 'fa:eraser', 'red',false );
         $this->form = $frm->show();
-
-        
-        // define the form actions
-        //$this->form->addAction( 'Save', new TAction([$this, 'onSave']), 'fa:save green');
-        $this->form->addActionLink( 'Clear',new TAction([$this, 'onClear']), 'fa:eraser red');
-
-        // make id not editable
-        //$id->setEditable(FALSE);
         
         // create the datagrid
         $formDinGrid = new TFormDinGrid($this,'gd','Lista de Meta Tipos','idMetaTipo');
